@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIMA | Detalle de Activo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; }
+        .glass { background: rgba(30, 41, 59, 0.4); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="text-slate-200 h-screen flex flex-col overflow-hidden">
+
+    <header class="px-6 pt-8 pb-4 flex justify-between items-center">
+        <button onclick="history.back()" class="p-2 bg-slate-800 rounded-full text-white">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <div class="text-center">
+            <h1 class="text-lg font-bold text-white">NVIDIA Corp.</h1>
+            <p class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">NVDA • NASDAQ</p>
+        </div>
+        <button class="p-2 bg-slate-800 rounded-full text-white">
+            <i data-lucide="star" class="w-5 h-5"></i>
+        </button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32">
+        <div class="my-6">
+            <h2 class="text-4xl font-bold text-white">$726.13</h2>
+            <p class="text-emerald-400 font-bold text-sm">+$32.40 (4.50%) Hoy</p>
+        </div>
+
+        <div class="w-full h-64 bg-slate-900 rounded-3xl border border-slate-800 overflow-hidden mb-8">
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                {
+                "symbol": "NASDAQ:NVDA",
+                "width": "100%",
+                "height": "100%",
+                "locale": "es",
+                "dateRange": "12M",
+                "colorTheme": "dark",
+                "isTransparent": true,
+                "autosize": true,
+                "largeChartUrl": ""
+                }
+                </script>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+                <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Apertura</p>
+                <p class="text-white font-bold">$715.00</p>
+            </div>
+            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800">
+                <p class="text-[10px] text-slate-500 uppercase font-bold mb-1">Cap. de Mercado</p>
+                <p class="text-white font-bold">1.8T</p>
+            </div>
+        </div>
+
+        <div class="flex gap-4">
+            <button class="flex-1 bg-emerald-500 text-black font-bold py-4 rounded-2xl shadow-lg shadow-emerald-500/20 active:scale-95 transition">COMPRAR</button>
+            <button class="flex-1 bg-red-500 text-white font-bold py-4 rounded-2xl shadow-lg shadow-red-500/20 active:scale-95 transition">VENDER</button>
+        </div>
+    </main>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

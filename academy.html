@@ -32,73 +32,60 @@
 
     <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32 space-y-6">
         
-        <div class="lesson-card rounded-3xl border border-slate-800 overflow-hidden group active:scale-[0.98] transition">
+        <div class="lesson-card rounded-3xl border border-slate-800 overflow-hidden active:scale-[0.98] transition">
             <div class="h-48 bg-slate-700 relative flex items-center justify-center">
                 <img src="https://images.unsplash.com/photo-1611974714024-4607a50d632a?q=80&w=500&auto=format&fit=crop" class="absolute inset-0 w-full h-full object-cover opacity-50">
                 <div class="z-10 bg-white/10 backdrop-blur-md p-4 rounded-full border border-white/20">
                     <i data-lucide="play" class="w-8 h-8 text-white fill-white"></i>
                 </div>
-                <span class="absolute bottom-3 left-3 bg-black/60 text-[10px] px-2 py-1 rounded font-bold">2 MIN</span>
             </div>
             <div class="p-5">
                 <h3 class="text-lg font-bold text-white mb-2">¿Qué es el S&P 500?</h3>
-                <p class="text-sm text-slate-400 leading-relaxed mb-4">Aprende por qué es la inversión más segura y recomendada del mundo.</p>
-                <button class="w-full bg-slate-800 hover:bg-slate-700 py-3 rounded-xl text-sm font-bold transition border border-slate-700">Comenzar Lección</button>
+                <p class="text-sm text-slate-400 leading-relaxed">Aprende por qué es la inversión más segura del mundo.</p>
             </div>
         </div>
 
-        <div class="lesson-card rounded-3xl border border-slate-800 p-5 relative overflow-hidden active:scale-[0.98] transition">
+        <div class="lesson-card rounded-3xl border border-slate-800 p-5 relative active:scale-[0.98] transition">
             <div class="flex justify-between items-start mb-4">
-                <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg">
-                    <i data-lucide="book-open" class="w-6 h-6"></i>
-                </div>
+                <div class="bg-blue-500/20 text-blue-400 p-2 rounded-lg"><i data-lucide="book-open" class="w-6 h-6"></i></div>
                 <span class="text-xs text-slate-500 font-bold">+50 PTS</span>
             </div>
-            <h3 class="text-lg font-bold text-white mb-2">Interés Compuesto: La 8va Maravilla</h3>
-            <p class="text-sm text-slate-400 leading-relaxed mb-6">Cómo 10$ hoy pueden convertirse en miles con el tiempo.</p>
-            <div class="flex items-center gap-2 text-emerald-400 text-xs font-bold">
-                <span>Leído por 1.2k personas</span>
-                <i data-lucide="chevron-right" class="w-4 h-4"></i>
-            </div>
+            <h3 class="text-lg font-bold text-white mb-2">Interés Compuesto</h3>
+            <p class="text-sm text-slate-400 mb-6">La clave para que tu dinero trabaje por ti.</p>
         </div>
-
-        <div class="lesson-card rounded-3xl border border-emerald-500/30 p-5 bg-emerald-500/5 active:scale-[0.98] transition">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="bg-emerald-500 text-black p-2 rounded-lg">
-                    <i data-lucide="help-circle" class="w-5 h-5"></i>
-                </div>
-                <h3 class="text-lg font-bold text-white">Quiz Rápido</h3>
-            </div>
-            <p class="text-sm text-slate-300 mb-6">¿Cuál es la tasa de cambio actual en CIMA?</p>
-            <button class="w-full bg-emerald-500 text-black font-bold py-3 rounded-xl text-sm shadow-lg shadow-emerald-500/20">Responder y ganar</button>
-        </div>
-
     </main>
 
-    <nav class="fixed bottom-0 w-full glass px-6 pb-6 pt-3 flex justify-between items-center z-50">
-        <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500">
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+        <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
             <i data-lucide="home" class="w-6 h-6"></i>
             <span class="text-[10px] font-medium">Inicio</span>
         </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-500">
+
+        <a href="market.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
             <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
             <span class="text-[10px] font-medium">Mercado</span>
         </a>
+        
         <div class="relative -top-6">
-            <div class="bg-emerald-500/20 w-16 h-16 rounded-full flex items-center justify-center border-[5px] border-[#0B0E14]">
-                <i data-lucide="graduation-cap" class="w-8 h-8 text-emerald-400"></i>
-            </div>
+            <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14] active:scale-90 transition transform">
+                <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+            </a>
         </div>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-500">
-            <i data-lucide="pie-chart" class="w-6 h-6"></i>
-            <span class="text-[10px] font-medium">Cartera</span>
+
+        <a href="academy.html" class="flex flex-col items-center gap-1 text-emerald-400 w-16">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Aprende</span>
         </a>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-500">
+
+        <a href="#" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
             <i data-lucide="user" class="w-6 h-6"></i>
             <span class="text-[10px] font-medium">Perfil</span>
         </a>
     </nav>
 
-    <script>lucide.createIcons();</script>
+    <script>
+        // ESTO HACE QUE LOS ICONOS Y BOTONES FUNCIONEN
+        lucide.createIcons();
+    </script>
 </body>
 </html>

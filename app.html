@@ -19,11 +19,22 @@
         .sheet-open { transform: translateY(0) !important; }
         .sheet-closed { transform: translateY(100%) !important; }
         
+        /* Notificación */
         @keyframes slideIn {
             from { transform: translateY(-100%); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
         .notification-enter { animation: slideIn 0.4s ease-out forwards; }
+
+        /* ELIMINAR FLECHAS DEL INPUT DE NÚMERO */
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type=number] {
+            -moz-appearance: textfield;
+        }
     </style>
 </head>
 <body class="bg-[#0B0E14] text-slate-200 h-screen flex flex-col overflow-hidden selection:bg-emerald-500/30">
@@ -55,7 +66,6 @@
     </header>
 
     <main class="flex-1 overflow-y-auto hide-scrollbar pb-32 px-5 pt-4">
-        
         <div class="text-center mb-8">
             <p class="text-slate-500 text-xs font-medium tracking-widest uppercase mb-1">Patrimonio Total</p>
             <h2 id="total-balance" class="text-4xl font-bold text-white tracking-tight">$ --</h2>
@@ -66,7 +76,7 @@
 
         <div class="grid grid-cols-2 gap-3 mb-8">
             <button class="bg-emerald-500 text-[#0B0E14] font-bold py-3 rounded-xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/20 active:scale-95 transition">
-                <i data-lucide="plus" class="w-4 h-4"></i> Depositar
+                <i data-lucide="plus" class="w-4 h-4"></i> Recargar
             </button>
             <button class="bg-slate-800 text-white font-medium py-3 rounded-xl flex items-center justify-center gap-2 border border-slate-700 active:scale-95 transition">
                 <i data-lucide="arrow-up-right" class="w-4 h-4"></i> Retirar
@@ -75,7 +85,6 @@
 
         <h3 class="text-lg font-bold text-white mb-4">Mis Activos</h3>
         <div id="assets-list" class="space-y-3">
-            
             <div class="card-gradient p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:border-emerald-500/50 transition">
                 <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white border border-slate-700">🇻🇪</div>
@@ -89,21 +98,6 @@
                     <p class="text-xs text-slate-500">Saldo Cash</p>
                 </div>
             </div>
-
-            <div class="card-gradient p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:border-emerald-500/50 transition">
-                <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center text-white font-bold text-xs border border-slate-700">SPX</div>
-                    <div>
-                        <h4 class="font-bold text-white text-sm">S&P 500</h4>
-                        <p class="text-xs text-slate-500">ETF • USA</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="font-bold text-white text-sm">$4,780.20</p>
-                    <p class="text-xs text-emerald-400">+1.2%</p>
-                </div>
-            </div>
-
         </div>
     </main>
 
@@ -126,14 +120,14 @@
             </div>
 
             <div class="flex-1 flex flex-col items-center justify-center mb-8">
-    <div class="flex items-center justify-center font-bold text-white">
-        <span id="currency-symbol" class="text-3xl text-emerald-500 mr-2">$</span>
-        <input id="trade-amount" type="number" placeholder="0" 
-               class="bg-transparent text-6xl font-bold focus:outline-none placeholder-slate-700 w-auto min-w-[50px] text-center"
-               oninput="resizeInput(this)">
-    </div>
-    <p id="asset-label" class="text-slate-500 text-sm mt-4">Comprando: Tesla (TSLA)</p>
-</div>
+                <div class="flex items-center justify-center font-bold text-white">
+                    <span id="currency-symbol" class="text-3xl text-emerald-500 mr-1">$</span>
+                    <input id="trade-amount" type="number" placeholder="0" 
+                           class="bg-transparent text-6xl font-bold focus:outline-none placeholder-slate-700 w-[60px] text-center"
+                           oninput="resizeInput(this)">
+                </div>
+                <p id="asset-label" class="text-slate-500 text-sm mt-4">Comprando: Tesla (TSLA)</p>
+            </div>
 
             <button onclick="executeTrade()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-[#0B0E14] font-bold py-4 rounded-xl text-lg mb-4 active:scale-95 transition shadow-lg shadow-emerald-500/20">
                 Confirmar Orden
@@ -158,59 +152,56 @@
     <script>
         lucide.createIcons();
         
-        // --- 1. GESTIÓN DE SALDO (MEMORIA) ---
-        // Revisamos si ya existe dinero guardado, si no, damos $12,450
         let currentBalance = localStorage.getItem('cima_balance') 
             ? parseFloat(localStorage.getItem('cima_balance')) 
             : 12450.00;
 
         let selectedAsset = { name: 'Tesla', ticker: 'TSLA' };
 
-        // Función para actualizar el texto del dinero
         function updateBalanceDisplay() {
             const formatter = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' });
             document.getElementById('total-balance').innerText = formatter.format(currentBalance);
         }
-        
-        // Cargar saldo al iniciar
         updateBalanceDisplay();
 
-        // Función Secreta para resetear dinero (Botón "YO" en el header)
-        function resetMoney() {
-            if(confirm("¿Quieres reiniciar tu cuenta demo a $12,450?")) {
-                currentBalance = 12450.00;
-                localStorage.setItem('cima_balance', currentBalance);
-                localStorage.removeItem('cima_assets'); // Borrar acciones
-                location.reload(); // Recargar página
+        function resizeInput(input) {
+            if (input.value.length === 0) {
+                input.style.width = "60px";
+            } else {
+                // Ajuste proporcional al tamaño de la fuente 6xl
+                input.style.width = (input.value.length * 40) + "px";
             }
         }
 
-        // --- 2. API DEL BCV (REAL) ---
+        function resetMoney() {
+            if(confirm("¿Reiniciar cuenta demo?")) {
+                currentBalance = 12450.00;
+                localStorage.setItem('cima_balance', currentBalance);
+                location.reload();
+            }
+        }
+
         async function fetchBCV() {
             try {
                 const response = await fetch('https://open.er-api.com/v6/latest/USD');
                 const data = await response.json();
                 const rate = data.rates.VES;
-                const date = new Date().toLocaleDateString('es-VE', {month:'short', day:'numeric'});
-                
-                document.getElementById('bcv-rate-display').innerHTML = 
-                    `Tasa BCV: <span class="text-white font-bold">Bs. ${rate.toFixed(2)}</span> (${date})`;
-            } catch (e) {
-                console.log("Error API");
-            }
+                document.getElementById('bcv-rate-display').innerHTML = `Tasa BCV: <span class="text-white font-bold">Bs. ${rate.toFixed(2)}</span>`;
+            } catch (e) { console.log("Error API"); }
         }
-        fetchBCV(); // Ejecutar al inicio
+        fetchBCV();
 
-        // --- 3. LÓGICA DE TRADING ---
         function toggleTrade() {
             const panel = document.getElementById('trade-panel');
             const overlay = document.getElementById('trade-overlay');
             const sheet = document.getElementById('trade-sheet');
+            const input = document.getElementById('trade-amount');
             
             if (panel.classList.contains('hidden')) {
                 panel.classList.remove('hidden');
-                document.getElementById('trade-amount').value = ''; 
-                document.getElementById('trade-amount').focus();
+                input.value = '';
+                input.style.width = "60px"; 
+                setTimeout(() => input.focus(), 100);
                 requestAnimationFrame(() => {
                     overlay.classList.remove('opacity-0');
                     sheet.classList.remove('sheet-closed');
@@ -238,34 +229,22 @@
         function executeTrade() {
             const amountInput = document.getElementById('trade-amount');
             const amount = parseFloat(amountInput.value);
+            if (!amount || amount <= 0 || amount > currentBalance) return;
 
-            if (!amount || amount <= 0) { alert("Ingresa un monto válido"); return; }
-            if (amount > currentBalance) { alert("Fondos insuficientes"); return; }
-
-            // Restar y Guardar en Memoria
             currentBalance -= amount;
-            localStorage.setItem('cima_balance', currentBalance); // <--- AQUÍ SE GUARDA
+            localStorage.setItem('cima_balance', currentBalance);
             updateBalanceDisplay();
 
-            // Agregar a la lista visualmente
             const assetsList = document.getElementById('assets-list');
             const newAssetHTML = `
-                <div class="card-gradient p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:border-emerald-500/50 transition animate-pulse">
+                <div class="card-gradient p-4 rounded-2xl border border-slate-800 flex justify-between items-center transition animate-pulse">
                     <div class="flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs border border-slate-600">${selectedAsset.ticker.substring(0,2)}</div>
-                        <div>
-                            <h4 class="font-bold text-white text-sm">${selectedAsset.name}</h4>
-                            <p class="text-xs text-slate-500">${selectedAsset.ticker} • Nuevo</p>
-                        </div>
+                        <div class="w-10 h-10 rounded-full bg-slate-700 flex items-center justify-center text-white font-bold text-xs">${selectedAsset.ticker.substring(0,2)}</div>
+                        <div><h4 class="font-bold text-white text-sm">${selectedAsset.name}</h4><p class="text-xs text-slate-500">${selectedAsset.ticker}</p></div>
                     </div>
-                    <div class="text-right">
-                        <p class="font-bold text-white text-sm">$${amount.toFixed(2)}</p>
-                        <p class="text-xs text-emerald-400">0.00%</p>
-                    </div>
-                </div>
-            `;
+                    <div class="text-right"><p class="font-bold text-white text-sm">$${amount.toFixed(2)}</p></div>
+                </div>`;
             assetsList.insertAdjacentHTML('afterbegin', newAssetHTML);
-
             toggleTrade();
             showNotification();
         }
@@ -276,27 +255,6 @@
             notif.classList.add('notification-enter');
             setTimeout(() => { notif.classList.add('hidden'); }, 3000);
         }
-        
-        // Recuperar acciones guardadas (Opcional para el futuro)
-        // Por ahora solo guardamos el saldo para mantenerlo simple.
-
-        function resizeInput(input) {
-    // Si no hay valor, el ancho es mínimo
-    if (input.value.length === 0) {
-        input.style.width = "60px";
-        return;
-    }
-    // Ajusta el ancho según la cantidad de números (aprox 35px por número en texto 6xl)
-    input.style.width = (input.value.length * 35) + "px";
-}
-
-// También actualiza la función toggleTrade para resetear el ancho al abrir
-const originalToggleTrade = toggleTrade;
-toggleTrade = function() {
-    originalToggleTrade();
-    const input = document.getElementById('trade-amount');
-    if (input) input.style.width = "60px"; 
-}
     </script>
 </body>
 </html>

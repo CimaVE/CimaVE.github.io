@@ -14,13 +14,10 @@
         .search-bg { background: rgba(30, 41, 59, 0.5); }
         .price-flash-up { color: #10b981 !important; transition: color 0.5s; }
         .price-flash-down { color: #ef4444 !important; transition: color 0.5s; }
-        
-        /* FIX: Forzar que los botones del nav no se expandan */
         .nav-item { width: 64px !important; flex-shrink: 0; }
     </style>
 </head>
 <body class="text-slate-200 h-screen flex flex-col overflow-hidden">
-
     <header class="px-6 pt-8 pb-4">
         <h1 class="text-2xl font-bold text-white mb-4">Mercados</h1>
         <div class="search-bg flex items-center gap-3 px-4 py-3 rounded-2xl border border-slate-700">
@@ -38,121 +35,35 @@
 
     <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32">
         <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Destacados</h3>
-        
         <div class="space-y-4">
             <a href="asset.html" class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:scale-[0.98] transition block">
                 <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10">
-                        <i data-lucide="cpu" class="w-6 h-6 text-emerald-400"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">NVIDIA</h4>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">NVDA • Tech</p>
-                    </div>
+                    <div class="w-12 h-12 bg-white/5 rounded-2xl flex items-center justify-center border border-white/10"><i data-lucide="cpu" class="w-6 h-6 text-emerald-400"></i></div>
+                    <div><h4 class="font-bold text-white">NVIDIA</h4><p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">NVDA • Tech</p></div>
                 </div>
-                <div class="text-right">
-                    <p class="live-price text-sm font-bold" data-base="726.13">$726.13</p>
-                    <p class="text-xs text-emerald-400">+4.50%</p>
-                </div>
+                <div class="text-right"><p class="live-price text-sm font-bold" data-base="726.13">$726.13</p><p class="text-xs text-emerald-400">+4.50%</p></div>
             </a>
-
-            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:scale-[0.98] transition">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center border border-blue-500/20">
-                        <i data-lucide="trending-up" class="w-6 h-6 text-blue-400"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">S&P 500</h4>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">Índice Global</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="live-price text-sm font-bold" data-base="5024.10">$5,024.10</p>
-                    <p class="text-xs text-emerald-400">+0.82%</p>
-                </div>
             </div>
-
-            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:scale-[0.98] transition">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-orange-500/10 rounded-2xl flex items-center justify-center border border-orange-500/20">
-                        <i data-lucide="bitcoin" class="w-6 h-6 text-orange-500"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Bitcoin</h4>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">BTC / USD</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="live-price text-sm font-bold" data-base="64120">$64,120.00</p>
-                    <p class="text-xs text-red-400">-1.40%</p>
-                </div>
-            </div>
-
-            <div class="bg-slate-900 p-4 rounded-2xl border border-slate-800 flex justify-between items-center active:scale-[0.98] transition">
-                <div class="flex items-center gap-4">
-                    <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center border border-emerald-500/20">
-                        <i data-lucide="landmark" class="w-6 h-6 text-emerald-500"></i>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-white">Bancamiga</h4>
-                        <p class="text-[10px] text-slate-500 font-bold uppercase tracking-tighter">BVC • Venezuela</p>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <p class="live-price text-sm font-bold" data-base="24.50">Bs. 24.50</p>
-                    <p class="text-xs text-emerald-400">+2.15%</p>
-                </div>
-            </div>
-        </div>
     </main>
 
     <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
-        <a href="app.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
-            <i data-lucide="home" class="w-6 h-6"></i>
-            <span class="text-[10px] font-medium">Inicio</span>
-        </a>
-
-        <a href="market.html" class="nav-item flex flex-col items-center gap-1 text-emerald-400">
-            <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
-            <span class="text-[10px] font-medium">Mercado</span>
-        </a>
-        
-        <div class="relative -top-6 flex justify-center nav-item">
-            <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/50 border-[5px] border-[#0B0E14] active:scale-90 transition transform">
-                <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
-            </a>
-        </div>
-
-        <a href="academy.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
-            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-            <span class="text-[10px] font-medium">Aprende</span>
-        </a>
-
-        <a href="profile.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
-            <i data-lucide="user" class="w-6 h-6"></i>
-            <span class="text-[10px] font-medium">Perfil</span>
-        </a>
+        <a href="app.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="home" class="w-6 h-6"></i><span class="text-[10px] font-medium">Inicio</span></a>
+        <a href="market.html" class="nav-item flex flex-col items-center gap-1 text-emerald-400"><i data-lucide="bar-chart-2" class="w-6 h-6"></i><span class="text-[10px] font-medium">Mercado</span></a>
+        <div class="relative -top-6 flex justify-center nav-item"><a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14] active:scale-90 transition transform"><i data-lucide="arrow-left-right" class="w-8 h-8"></i></a></div>
+        <a href="academy.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="graduation-cap" class="w-6 h-6"></i><span class="text-[10px] font-medium">Aprende</span></a>
+        <a href="profile.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="user" class="w-6 h-6"></i><span class="text-[10px] font-medium">Perfil</span></a>
     </nav>
 
     <script>
         lucide.createIcons();
-
         function simulatePrices() {
             document.querySelectorAll('.live-price').forEach(el => {
                 let basePrice = parseFloat(el.getAttribute('data-base'));
                 let variation = 1 + (Math.random() * 0.004 - 0.002);
-                let newPrice = basePrice * variation;
-                el.setAttribute('data-base', newPrice.toFixed(2));
-
-                if (el.innerText.includes('Bs.')) {
-                    el.innerText = `Bs. ${newPrice.toLocaleString('es-VE', {minimumFractionDigits: 2})}`;
-                } else {
-                    el.innerText = `$${newPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
-                }
-
+                let newPrice = basePrice * variation; el.setAttribute('data-base', newPrice.toFixed(2));
+                el.innerText = el.innerText.includes('Bs.') ? `Bs. ${newPrice.toLocaleString('es-VE', {minimumFractionDigits: 2})}` : `$${newPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
                 const colorClass = variation > 1 ? 'price-flash-up' : 'price-flash-down';
-                el.classList.add(colorClass);
-                setTimeout(() => el.classList.remove('price-flash-up', 'price-flash-down'), 600);
+                el.classList.add(colorClass); setTimeout(() => el.classList.remove('price-flash-up', 'price-flash-down'), 600);
             });
         }
         setInterval(simulatePrices, 3000);

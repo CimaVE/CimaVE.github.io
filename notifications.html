@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIMA | Notificaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .glass { background: rgba(11, 14, 20, 0.85); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.05); }
+        .unread-dot { width: 8px; height: 8px; background-color: #10b981; border-radius: 50%; box-shadow: 0 0 8px #10b981; }
+        .nav-item { width: 64px !important; flex-shrink: 0; }
+    </style>
+</head>
+<body class="text-slate-200 h-screen flex flex-col overflow-hidden">
+
+    <header class="px-6 pt-10 pb-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold text-white">Notificaciones</h1>
+            <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold">Mantente al día</p>
+        </div>
+        <button class="text-emerald-400 text-xs font-bold">Leer todas</button>
+    </header>
+
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32">
+        
+        <div class="mb-8">
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Hoy</h3>
+            <div class="space-y-4">
+                
+                <div class="bg-slate-900/50 p-4 rounded-3xl border border-slate-800 flex gap-4 relative">
+                    <div class="unread-dot absolute top-4 right-4"></div>
+                    <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-emerald-400 shrink-0">
+                        <i data-lucide="trending-up" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">¡NVIDIA en máximos!</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">NVDA ha subido un 5.2% en la última hora. ¿Es momento de tomar ganancias?</p>
+                        <p class="text-[10px] text-slate-600 mt-2 font-bold">Hace 15 min</p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/50 p-4 rounded-3xl border border-slate-800 flex gap-4 relative">
+                    <div class="unread-dot absolute top-4 right-4"></div>
+                    <div class="w-12 h-12 bg-blue-500/10 rounded-2xl flex items-center justify-center text-blue-400 shrink-0">
+                        <i data-lucide="wallet" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">Depósito Confirmado</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Tu pago móvil por Bs. 5,000 ha sido procesado exitosamente. Ya puedes invertir.</p>
+                        <p class="text-[10px] text-slate-600 mt-2 font-bold">Hace 2 horas</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Anteriores</h3>
+            <div class="space-y-4">
+                <div class="flex gap-4 p-4 opacity-60">
+                    <div class="w-12 h-12 bg-slate-800 rounded-2xl flex items-center justify-center text-slate-400 shrink-0">
+                        <i data-lucide="shield-check" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h4 class="text-sm font-bold text-white">KYC en Revisión</h4>
+                        <p class="text-xs text-slate-400 leading-relaxed mt-1">Estamos validando tus documentos. Te avisaremos pronto.</p>
+                        <p class="text-[10px] text-slate-600 mt-2 font-bold">Ayer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="home" class="w-6 h-6"></i><span class="text-[10px] font-medium">Inicio</span></div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="bar-chart-2" class="w-6 h-6"></i><span class="text-[10px] font-medium">Mercado</span></div>
+        <div class="relative -top-6 nav-item flex justify-center">
+            <div class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14]"><i data-lucide="arrow-left-right" class="w-8 h-8"></i></div>
+        </div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="graduation-cap" class="w-6 h-6"></i><span class="text-[10px] font-medium">Aprende</span></div>
+        <div class="nav-item flex flex-col items-center gap-1 text-emerald-400"><i data-lucide="bell" class="w-6 h-6"></i><span class="text-[10px] font-medium">Alertas</span></div>
+    </nav>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

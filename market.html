@@ -14,6 +14,9 @@
         .search-bg { background: rgba(30, 41, 59, 0.5); }
         .price-flash-up { color: #10b981 !important; transition: color 0.5s; }
         .price-flash-down { color: #ef4444 !important; transition: color 0.5s; }
+        
+        /* FIX: Forzar que los botones del nav no se expandan */
+        .nav-item { width: 64px !important; flex-shrink: 0; }
     </style>
 </head>
 <body class="text-slate-200 h-screen flex flex-col overflow-hidden">
@@ -104,32 +107,32 @@
     </main>
 
     <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
-    <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
-        <i data-lucide="home" class="w-6 h-6"></i>
-        <span class="text-[10px] font-medium">Inicio</span>
-    </a>
-
-    <a href="market.html" class="flex flex-col items-center gap-1 text-emerald-400 w-16">
-        <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
-        <span class="text-[10px] font-medium">Mercado</span>
-    </a>
-    
-    <div class="relative -top-6">
-        <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/50 border-[5px] border-[#0B0E14] active:scale-90 transition transform">
-            <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+        <a href="app.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Inicio</span>
         </a>
-    </div>
 
-    <a href="academy.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
-        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-        <span class="text-[10px] font-medium">Aprende</span>
-    </a>
+        <a href="market.html" class="nav-item flex flex-col items-center gap-1 text-emerald-400">
+            <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Mercado</span>
+        </a>
+        
+        <div class="relative -top-6 flex justify-center nav-item">
+            <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/50 border-[5px] border-[#0B0E14] active:scale-90 transition transform">
+                <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+            </a>
+        </div>
 
-    <a href="#" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
-        <i data-lucide="user" class="w-6 h-6"></i>
-        <span class="text-[10px] font-medium">Perfil</span>
-    </a>
-</nav>
+        <a href="academy.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Aprende</span>
+        </a>
+
+        <a href="profile.html" class="nav-item flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
+            <i data-lucide="user" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Perfil</span>
+        </a>
+    </nav>
 
     <script>
         lucide.createIcons();
@@ -137,7 +140,7 @@
         function simulatePrices() {
             document.querySelectorAll('.live-price').forEach(el => {
                 let basePrice = parseFloat(el.getAttribute('data-base'));
-                let variation = 1 + (Math.random() * 0.004 - 0.002); // Variación de 0.2%
+                let variation = 1 + (Math.random() * 0.004 - 0.002);
                 let newPrice = basePrice * variation;
                 el.setAttribute('data-base', newPrice.toFixed(2));
 

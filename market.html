@@ -130,5 +130,38 @@
     </nav>
 
     <script>lucide.createIcons();</script>
+    <script>
+    lucide.createIcons();
+
+    // Simulación de Precios Vivos
+    function simulateMarket() {
+        // Buscamos todos los elementos de precio
+        const priceElements = document.querySelectorAll('.text-right p.font-bold');
+        
+        priceElements.forEach(el => {
+            // Obtenemos el precio actual limpiando símbolos
+            let currentPrice = parseFloat(el.innerText.replace(/[$,Bs.\s]/g, '').replace(',', '.'));
+            
+            // Generamos un cambio aleatorio pequeño (-0.1% a +0.1%)
+            const change = 1 + (Math.random() * 0.002 - 0.001);
+            const newPrice = currentPrice * change;
+            
+            // Determinamos si es Bolívar o Dólar para el formato
+            if (el.innerText.includes('Bs.')) {
+                el.innerText = `Bs. ${newPrice.toLocaleString('es-VE', {minimumFractionDigits: 2})}`;
+            } else {
+                el.innerText = `$${newPrice.toLocaleString('en-US', {minimumFractionDigits: 2})}`;
+            }
+
+            // Efecto visual de parpadeo (Flash)
+            const color = change > 1 ? 'text-emerald-400' : 'text-red-400';
+            el.classList.add(color);
+            setTimeout(() => el.classList.remove('text-emerald-400', 'text-red-400'), 500);
+        });
+    }
+
+    // Actualizar cada 3 segundos
+    setInterval(simulateMarket, 3000);
+</script>
 </body>
 </html>

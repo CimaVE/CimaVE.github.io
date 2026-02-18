@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIMA | Perfil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .glass { background: rgba(11, 14, 20, 0.85); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="text-slate-200 h-screen flex flex-col overflow-hidden">
+
+    <header class="px-6 pt-10 pb-6 text-center">
+        <div class="relative inline-block mb-4">
+            <div class="w-24 h-24 rounded-full bg-slate-800 border-2 border-emerald-500 flex items-center justify-center text-3xl font-bold text-emerald-400 mx-auto">
+                YO
+            </div>
+            <div class="absolute bottom-0 right-0 bg-emerald-500 p-1.5 rounded-full border-4 border-[#0B0E14]">
+                <i data-lucide="check" class="w-3 h-3 text-black font-bold"></i>
+            </div>
+        </div>
+        <h1 class="text-xl font-bold text-white">Inversionista CIMA</h1>
+        <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest">Nivel de Verificación: Pro</p>
+    </header>
+
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32 space-y-6">
+        
+        <div class="bg-slate-900 rounded-3xl p-6 border border-slate-800">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest mb-4">Mi Billetera</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center p-3 bg-black/20 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="credit-card" class="w-5 h-5 text-emerald-400"></i>
+                        <span class="text-sm">Pago Móvil (BCV)</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-black/20 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="banknote" class="w-5 h-5 text-blue-400"></i>
+                        <span class="text-sm">Zelle / Dólares</span>
+                    </div>
+                    <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <h3 class="text-sm font-bold text-slate-500 uppercase tracking-widest px-2 mb-2">Ajustes</h3>
+            <button class="w-full flex justify-between items-center p-4 hover:bg-slate-900 rounded-2xl transition">
+                <div class="flex items-center gap-4">
+                    <i data-lucide="shield-check" class="w-5 h-5 text-slate-400"></i>
+                    <span class="text-sm">Seguridad y Privacidad</span>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+            </button>
+            <button class="w-full flex justify-between items-center p-4 hover:bg-slate-900 rounded-2xl transition">
+                <div class="flex items-center gap-4">
+                    <i data-lucide="help-circle" class="w-5 h-5 text-slate-400"></i>
+                    <span class="text-sm">Centro de Ayuda</span>
+                </div>
+                <i data-lucide="chevron-right" class="w-4 h-4 text-slate-600"></i>
+            </button>
+            <button onclick="localStorage.clear(); location.href='index.html'" class="w-full flex justify-between items-center p-4 hover:bg-red-500/10 rounded-2xl transition group">
+                <div class="flex items-center gap-4">
+                    <i data-lucide="log-out" class="w-5 h-5 text-red-400"></i>
+                    <span class="text-sm text-red-400">Cerrar Sesión</span>
+                </div>
+            </button>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+        <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Inicio</span>
+        </a>
+        <a href="market.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+            <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Mercado</span>
+        </a>
+        <div class="relative -top-6">
+            <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14] active:scale-90 transition transform">
+                <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+            </a>
+        </div>
+        <a href="academy.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+            <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Aprende</span>
+        </a>
+        <a href="profile.html" class="flex flex-col items-center gap-1 text-emerald-400 w-16">
+            <i data-lucide="user" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Perfil</span>
+        </a>
+    </nav>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

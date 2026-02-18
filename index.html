@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMA | Inversiones Sin Límites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Animación suave para el gradiente */
+        .gradient-text {
+            background: linear-gradient(to right, #34d399, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-white font-sans antialiased">
+
+    <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
+        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+            <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+            CIMA
+        </div>
+        <div class="hidden md:flex gap-6 text-sm text-slate-300">
+            <a href="#" class="hover:text-emerald-400 transition">Cómo funciona</a>
+            <a href="#" class="hover:text-emerald-400 transition">Mercados</a>
+            <a href="#" class="hover:text-emerald-400 transition">Seguridad</a>
+        </div>
+        <a href="#" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-2 px-4 rounded-full text-sm transition">
+            Entrar
+        </a>
+    </nav>
+
+    <main class="flex flex-col items-center justify-center text-center mt-20 px-4">
+        <div class="inline-block bg-slate-800 rounded-full px-4 py-1 text-xs text-emerald-400 mb-6 border border-slate-700">
+            🚀 Próximamente en Venezuela
+        </div>
+        
+        <h1 class="text-5xl md:text-7xl font-bold tracking-tight max-w-4xl mb-6">
+            Lleva tu dinero a la <br>
+            <span class="gradient-text">CIMA Financiera</span>
+        </h1>
+        
+        <p class="text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed">
+            La primera plataforma pensada para jóvenes inversionistas. Accede a la 
+            <strong>Bolsa de Valores de Caracas</strong> y mercados globales desde tu teléfono. 
+            Rápido, seguro y sin montos mínimos absurdos.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+            <input type="email" placeholder="Tu correo electrónico" class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition">
+            <button class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
+                Unirme a la lista
+            </button>
+        </div>
+        <p class="text-xs text-slate-500 mt-4">🔒 Tus datos están 100% seguros. Cero spam.</p>
+    </main>
+
+    <section class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-32 px-6 mb-20">
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
+            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">⚡</div>
+            <h3 class="text-xl font-bold mb-2">Velocidad Rayo</h3>
+            <p class="text-slate-400 text-sm">Ejecuta órdenes de compra y venta en milisegundos. Sin burocracia de papel.</p>
+        </div>
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
+            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🛡️</div>
+            <h3 class="text-xl font-bold mb-2">Seguridad Total</h3>
+            <p class="text-slate-400 text-sm">Tu cuenta protegida con autenticación de dos pasos y encriptación bancaria.</p>
+        </div>
+        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
+            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🇻🇪</div>
+            <h3 class="text-xl font-bold mb-2">Identidad Local</h3>
+            <p class="text-slate-400 text-sm">Conectados directamente con la realidad venezolana. En Bolívares y Divisas.</p>
+        </div>
+    </section>
+
+    <footer class="border-t border-slate-800 py-8 text-center text-slate-500 text-sm">
+        <p>&copy; 2024 CIMA Financial. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>

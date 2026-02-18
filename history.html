@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIMA | Historial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .glass { background: rgba(11, 14, 20, 0.85); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.05); }
+        .nav-item { width: 64px !important; flex-shrink: 0; }
+    </style>
+</head>
+<body class="text-slate-200 h-screen flex flex-col overflow-hidden">
+
+    <header class="px-6 pt-10 pb-4">
+        <h1 class="text-2xl font-bold text-white">Actividad</h1>
+        <p class="text-xs text-slate-500 mt-1 uppercase tracking-widest font-bold">Registro de transacciones</p>
+    </header>
+
+    <div class="flex gap-2 px-6 mb-6 overflow-x-auto hide-scrollbar">
+        <button class="bg-white text-black px-4 py-1.5 rounded-full text-xs font-bold">Todo</button>
+        <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-xs font-bold border border-slate-700">Compras</button>
+        <button class="bg-slate-800 text-slate-400 px-4 py-1.5 rounded-full text-xs font-bold border border-slate-700">Depósitos</button>
+    </div>
+
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32">
+        
+        <div class="mb-8">
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Hoy</h3>
+            <div class="space-y-4">
+                
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400">
+                            <i data-lucide="arrow-down-left" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Compra NVIDIA</p>
+                            <p class="text-[10px] text-slate-500">14:20 • Exitoso</p>
+                        </div>
+                    </div>
+                    <p class="text-sm font-bold text-white">-$150.00</p>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400">
+                            <i data-lucide="plus" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Depósito Pago Móvil</p>
+                            <p class="text-[10px] text-slate-500">09:45 • Exitoso</p>
+                        </div>
+                    </div>
+                    <p class="text-sm font-bold text-emerald-400">+$500.00</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div>
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Ayer</h3>
+            <div class="space-y-4">
+                <div class="flex justify-between items-center opacity-70">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-orange-500/10 rounded-xl flex items-center justify-center text-orange-400">
+                            <i data-lucide="bitcoin" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <p class="text-sm font-bold text-white">Compra Bitcoin</p>
+                            <p class="text-[10px] text-slate-500">18:12 • Exitoso</p>
+                        </div>
+                    </div>
+                    <p class="text-sm font-bold text-white">-$45.20</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500">
+            <i data-lucide="home" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Inicio</span>
+        </div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500">
+            <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Mercado</span>
+        </div>
+        <div class="relative -top-6 nav-item flex justify-center">
+            <div class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14]">
+                <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+            </div>
+        </div>
+        <div class="nav-item flex flex-col items-center gap-1 text-emerald-400">
+            <i data-lucide="pie-chart" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Cartera</span>
+        </div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500">
+            <i data-lucide="user" class="w-6 h-6"></i>
+            <span class="text-[10px] font-medium">Perfil</span>
+        </div>
+    </nav>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

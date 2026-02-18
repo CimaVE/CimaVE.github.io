@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>CIMA | Seguridad</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #0B0E14; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .glass { background: rgba(11, 14, 20, 0.85); backdrop-filter: blur(12px); border-top: 1px solid rgba(255,255,255,0.05); }
+        
+        /* Estilo para los Toggles (Interruptores) */
+        .toggle-checkbox:checked { right: 0; border-color: #10b981; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #10b981; }
+        .nav-item { width: 64px !important; flex-shrink: 0; }
+    </style>
+</head>
+<body class="text-slate-200 h-screen flex flex-col overflow-hidden">
+
+    <header class="px-6 pt-10 pb-4 flex items-center gap-4">
+        <button onclick="history.back()" class="p-2 bg-slate-800 rounded-full text-white">
+            <i data-lucide="chevron-left" class="w-6 h-6"></i>
+        </button>
+        <h1 class="text-2xl font-bold text-white">Seguridad</h1>
+    </header>
+
+    <main class="flex-1 overflow-y-auto hide-scrollbar px-6 pb-32">
+        
+        <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6 mb-8 text-center">
+            <div class="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i data-lucide="shield-check" class="w-8 h-8 text-emerald-400"></i>
+            </div>
+            <h3 class="font-bold text-white text-lg">Protección Alta</h3>
+            <p class="text-xs text-emerald-100/60 mt-1">Tu cuenta cumple con los estándares Pro de CIMA.</p>
+        </div>
+
+        <div class="space-y-6">
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest">Autenticación</h3>
+            
+            <div class="flex justify-between items-center bg-slate-900/50 p-4 rounded-2xl border border-slate-800">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="fingerprint" class="w-5 h-5 text-slate-400"></i>
+                    <div>
+                        <p class="text-sm font-bold">FaceID / Huella</p>
+                        <p class="text-[10px] text-slate-500">Acceso rápido y seguro</p>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer">
+                    <input type="checkbox" class="sr-only peer" checked>
+                    <div class="w-11 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-500"></div>
+                </label>
+            </div>
+
+            <div class="flex justify-between items-center bg-slate-900/50 p-4 rounded-2xl border border-slate-800">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="smartphone" class="w-5 h-5 text-slate-400"></i>
+                    <div>
+                        <p class="text-sm font-bold">App de Autenticación</p>
+                        <p class="text-[10px] text-slate-500">Google o Authy</p>
+                    </div>
+                </div>
+                <button class="text-xs font-bold text-emerald-400 bg-emerald-400/10 px-3 py-1.5 rounded-lg border border-emerald-400/20">Configurar</button>
+            </div>
+        </div>
+
+        <div class="mt-10">
+            <h3 class="text-[10px] text-slate-500 font-bold uppercase tracking-widest mb-4">Dispositivos Vinculados</h3>
+            <div class="bg-slate-900/50 rounded-2xl border border-slate-800 overflow-hidden">
+                <div class="p-4 flex items-center justify-between border-b border-slate-800/50">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="monitor" class="w-5 h-5 text-slate-500"></i>
+                        <div>
+                            <p class="text-xs font-bold">iPhone 15 Pro (Actual)</p>
+                            <p class="text-[10px] text-slate-500">Caracas, Venezuela</p>
+                        </div>
+                    </div>
+                    <span class="text-[8px] bg-emerald-500/20 text-emerald-400 px-2 py-0.5 rounded font-bold">ACTIVO</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="home" class="w-6 h-6"></i><span class="text-[10px] font-medium">Inicio</span></div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="bar-chart-2" class="w-6 h-6"></i><span class="text-[10px] font-medium">Mercado</span></div>
+        <div class="relative -top-6 nav-item flex justify-center">
+            <div class="bg-slate-800 text-slate-500 w-16 h-16 rounded-full flex items-center justify-center border-[5px] border-[#0B0E14]"><i data-lucide="arrow-left-right" class="w-8 h-8"></i></div>
+        </div>
+        <div class="nav-item flex flex-col items-center gap-1 text-slate-500"><i data-lucide="graduation-cap" class="w-6 h-6"></i><span class="text-[10px] font-medium">Aprende</span></div>
+        <div class="nav-item flex flex-col items-center gap-1 text-emerald-400"><i data-lucide="shield" class="w-6 h-6"></i><span class="text-[10px] font-medium">Seguridad</span></div>
+    </nav>
+
+    <script>lucide.createIcons();</script>
+</body>
+</html>

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CIMA | Mi Portafolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        /* Ocultar scrollbar para look de App nativa */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    </style>
+</head>
+<body class="bg-slate-900 text-white h-screen overflow-hidden flex">
+
+    <aside class="w-20 md:w-64 bg-slate-800 border-r border-slate-700 flex-col justify-between hidden md:flex">
+        <div class="p-6">
+            <div class="flex items-center gap-3 text-2xl font-bold tracking-tighter mb-10 text-white">
+                <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                <span class="hidden md:block">CIMA</span>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center gap-3 bg-emerald-500/10 text-emerald-400 px-4 py-3 rounded-xl font-medium border border-emerald-500/20">
+                    <span>📊</span> <span class="hidden md:block">Portafolio</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 text-slate-400 hover:bg-slate-700/50 px-4 py-3 rounded-xl transition">
+                    <span>📈</span> <span class="hidden md:block">Mercados</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 text-slate-400 hover:bg-slate-700/50 px-4 py-3 rounded-xl transition">
+                    <span>💳</span> <span class="hidden md:block">Billetera</span>
+                </a>
+                <a href="#" class="flex items-center gap-3 text-slate-400 hover:bg-slate-700/50 px-4 py-3 rounded-xl transition">
+                    <span>🎓</span> <span class="hidden md:block">Aprende</span>
+                </a>
+            </nav>
+        </div>
+
+        <div class="p-6 border-t border-slate-700">
+            <a href="index.html" class="flex items-center gap-3 text-slate-400 hover:text-white transition text-sm">
+                <span>🚪</span> <span class="hidden md:block">Cerrar Sesión</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-4 md:p-8 relative">
+        
+        <div class="md:hidden flex justify-between items-center mb-6">
+            <span class="font-bold text-xl">CIMA</span>
+            <div class="h-8 w-8 bg-emerald-500 rounded-full"></div>
+        </div>
+
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-bold">Hola, Inversionista 👋</h1>
+                <p class="text-slate-400 text-sm">Resumen de tu cuenta hoy</p>
+            </div>
+            <div class="flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-full border border-slate-700">
+                <div class="text-right hidden sm:block">
+                    <p class="text-xs text-slate-400">Cuenta Demo</p>
+                    <p class="text-sm font-bold text-emerald-400">Verificada</p>
+                </div>
+                <div class="h-10 w-10 bg-gradient-to-tr from-emerald-400 to-blue-500 rounded-full border-2 border-white/20"></div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="col-span-2 bg-gradient-to-br from-slate-800 to-slate-900 p-6 rounded-2xl border border-slate-700 shadow-lg relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                
+                <p class="text-slate-400 text-sm mb-1">Patrimonio Total Estimado</p>
+                <h2 class="text-4xl font-bold text-white mb-2">$ 1,240.50 <span class="text-sm font-normal text-slate-500">USD</span></h2>
+                
+                <div class="flex items-center gap-2 mb-6">
+                    <span class="bg-emerald-500/20 text-emerald-400 text-xs px-2 py-1 rounded font-bold">+2.4%</span>
+                    <span class="text-slate-500 text-xs">vs. mes anterior</span>
+                </div>
+
+                <div class="flex gap-3">
+                    <button class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-2 px-6 rounded-lg text-sm transition flex-1 md:flex-none">
+                        Depositar
+                    </button>
+                    <button class="bg-slate-700 hover:bg-slate-600 text-white font-bold py-2 px-6 rounded-lg text-sm transition flex-1 md:flex-none">
+                        Retirar
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 flex flex-col justify-center">
+                <p class="text-slate-400 text-sm mb-4">Mercado Hoy</p>
+                
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                            <span class="font-bold">S&P 500</span>
+                        </div>
+                        <span class="text-emerald-400">+1.2%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-red-500"></div>
+                            <span class="font-bold">Bitcoin</span>
+                        </div>
+                        <span class="text-red-400">-0.5%</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <div class="w-2 h-2 rounded-full bg-yellow-500"></div>
+                            <span class="font-bold">Oro</span>
+                        </div>
+                        <span class="text-yellow-400">+0.1%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="text-xl font-bold mb-4">Mis Activos</h3>
+        <div class="bg-slate-800 rounded-2xl border border-slate-700 overflow-hidden">
+            <table class="w-full text-left">
+                <thead class="bg-slate-700/50 text-slate-400 text-xs uppercase">
+                    <tr>
+                        <th class="px-6 py-4">Activo</th>
+                        <th class="px-6 py-4 hidden md:table-cell">Precio</th>
+                        <th class="px-6 py-4">Balance</th>
+                        <th class="px-6 py-4 text-right">Acción</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-700 text-sm">
+                    <tr class="hover:bg-slate-700/30 transition">
+                        <td class="px-6 py-4 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-white text-black flex items-center justify-center font-bold"></div>
+                            <div>
+                                <div class="font-bold">Apple Inc.</div>
+                                <div class="text-xs text-slate-500">AAPL</div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell">$182.50</td>
+                        <td class="px-6 py-4">
+                            <div class="font-bold">$450.00</div>
+                            <div class="text-xs text-emerald-400">+12.5%</div>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button class="text-emerald-400 hover:text-emerald-300 font-bold text-xs border border-emerald-500/50 px-3 py-1 rounded hover:bg-emerald-500/10 transition">Operar</button>
+                        </td>
+                    </tr>
+                    
+                    <tr class="hover:bg-slate-700/30 transition">
+                        <td class="px-6 py-4 flex items-center gap-3">
+                            <div class="w-8 h-8 rounded bg-red-600 text-white flex items-center justify-center font-bold">T</div>
+                            <div>
+                                <div class="font-bold">Tesla</div>
+                                <div class="text-xs text-slate-500">TSLA</div>
+                            </div>
+                        </td>
+                        <td class="px-6 py-4 hidden md:table-cell">$240.10</td>
+                        <td class="px-6 py-4">
+                            <div class="font-bold">$240.10</div>
+                            <div class="text-xs text-red-400">-2.3%</div>
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                            <button class="text-emerald-400 hover:text-emerald-300 font-bold text-xs border border-emerald-500/50 px-3 py-1 rounded hover:bg-emerald-500/10 transition">Operar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </main>
+
+</body>
+</html>

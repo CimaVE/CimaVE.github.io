@@ -279,6 +279,24 @@
         
         // Recuperar acciones guardadas (Opcional para el futuro)
         // Por ahora solo guardamos el saldo para mantenerlo simple.
+
+        function resizeInput(input) {
+    // Si no hay valor, el ancho es mínimo
+    if (input.value.length === 0) {
+        input.style.width = "60px";
+        return;
+    }
+    // Ajusta el ancho según la cantidad de números (aprox 35px por número en texto 6xl)
+    input.style.width = (input.value.length * 35) + "px";
+}
+
+// También actualiza la función toggleTrade para resetear el ancho al abrir
+const originalToggleTrade = toggleTrade;
+toggleTrade = function() {
+    originalToggleTrade();
+    const input = document.getElementById('trade-amount');
+    if (input) input.style.width = "60px"; 
+}
     </script>
 </body>
 </html>

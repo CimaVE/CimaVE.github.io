@@ -126,12 +126,14 @@
             </div>
 
             <div class="flex-1 flex flex-col items-center justify-center mb-8">
-                <div class="relative w-full">
-                    <span class="absolute left-1/2 -translate-x-20 top-1/2 -translate-y-1/2 text-3xl text-emerald-500 font-bold">$</span>
-                    <input id="trade-amount" type="number" placeholder="0" class="w-full bg-transparent text-center text-6xl font-bold text-white focus:outline-none placeholder-slate-700">
-                </div>
-                <p id="asset-label" class="text-slate-500 text-sm mt-2">Comprando: Tesla (TSLA)</p>
-            </div>
+    <div class="flex items-center justify-center font-bold text-white">
+        <span id="currency-symbol" class="text-3xl text-emerald-500 mr-2">$</span>
+        <input id="trade-amount" type="number" placeholder="0" 
+               class="bg-transparent text-6xl font-bold focus:outline-none placeholder-slate-700 w-auto min-w-[50px] text-center"
+               oninput="resizeInput(this)">
+    </div>
+    <p id="asset-label" class="text-slate-500 text-sm mt-4">Comprando: Tesla (TSLA)</p>
+</div>
 
             <button onclick="executeTrade()" class="w-full bg-emerald-500 hover:bg-emerald-400 text-[#0B0E14] font-bold py-4 rounded-xl text-lg mb-4 active:scale-95 transition shadow-lg shadow-emerald-500/20">
                 Confirmar Orden

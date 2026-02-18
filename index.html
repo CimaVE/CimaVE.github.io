@@ -2,68 +2,62 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CIMA | Inversiones Sin Límites</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* Animación suave para el gradiente */
+        body { font-family: 'Inter', sans-serif; }
         .gradient-text {
             background: linear-gradient(to right, #34d399, #3b82f6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
+        .glass-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
     </style>
 </head>
-<body class="bg-slate-900 text-white font-sans antialiased">
-    <nav class="fixed top-0 left-0 w-full z-50 bg-slate-900/90 backdrop-blur-md border-b border-slate-800">
-    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-        
-        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
-            <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-            CIMA
-        </div>
+<body class="bg-[#0B0E14] text-white antialiased">
 
-        <div class="hidden md:flex items-center gap-3 bg-slate-800 px-4 py-2 rounded-full border border-slate-700 shadow-lg shadow-emerald-500/10">
-            <div class="flex items-center gap-2">
-                <span class="relative flex h-2 w-2">
-                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                </span>
-                <span class="text-xs text-slate-400 font-bold">USD/BCV</span>
+    <nav class="fixed top-0 left-0 w-full z-50 glass-nav border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            
+            <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
+                <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                </svg>
+                CIMA
             </div>
-            <div id="bcv-price" class="font-mono text-emerald-400 font-bold text-sm">
-                Cargando...
+
+            <div class="hidden md:flex items-center gap-3 bg-slate-800/50 px-4 py-2 rounded-full border border-slate-700">
+                <div class="flex items-center gap-2">
+                    <span class="relative flex h-2 w-2">
+                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                      <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                    </span>
+                    <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">USD/BCV</span>
+                </div>
+                <div id="bcv-price" class="font-mono text-emerald-400 font-bold text-sm">Cargando...</div>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <a href="academy.html" class="hidden sm:flex items-center gap-2 text-slate-400 hover:text-white transition group text-sm font-medium">
+                    <i data-lucide="graduation-cap" class="w-5 h-5 group-hover:text-emerald-400 transition"></i>
+                    Aprende
+                </a>
+                
+                <a href="app.html" class="bg-emerald-500 hover:bg-emerald-400 text-[#0B0E14] font-bold py-2.5 px-6 rounded-full text-sm transition shadow-lg shadow-emerald-500/20 active:scale-95 transform">
+                    Entrar
+                </a>
             </div>
         </div>
-
-        <a href="app.html" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-2 px-5 rounded-full text-sm transition shadow-lg shadow-emerald-500/20">
-    Entrar
-</a>
-        
-<a href="academy.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition">
-    <i data-lucide="graduation-cap" class="w-6 h-6"></i>
-    <span class="text-[10px] font-medium">Aprende</span>
-</a>
-    </div>
-</nav>
-
-    <nav class="flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tighter flex items-center gap-2">
-            <svg class="w-8 h-8 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-            CIMA
-        </div>
-        <div class="hidden md:flex gap-6 text-sm text-slate-300">
-            <a href="#" class="hover:text-emerald-400 transition">Cómo funciona</a>
-            <a href="#" class="hover:text-emerald-400 transition">Mercados</a>
-            <a href="#" class="hover:text-emerald-400 transition">Seguridad</a>
-        </div>
-        <a href="#" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-2 px-4 rounded-full text-sm transition">
-            Entrar
-        </a>
     </nav>
 
-    <main class="flex flex-col items-center justify-center text-center mt-20 px-4">
-        <div class="inline-block bg-slate-800 rounded-full px-4 py-1 text-xs text-emerald-400 mb-6 border border-slate-700">
+    <main class="flex flex-col items-center justify-center text-center pt-40 pb-20 px-4">
+        <div class="inline-block bg-slate-800/50 rounded-full px-4 py-1.5 text-[10px] font-bold text-emerald-400 mb-6 border border-emerald-500/20 uppercase tracking-widest">
             🚀 Próximamente en Venezuela
         </div>
         
@@ -74,125 +68,111 @@
         
         <p class="text-lg text-slate-400 max-w-2xl mb-10 leading-relaxed">
             La primera plataforma pensada para jóvenes inversionistas. Accede a la 
-            <strong>Bolsa de Valores de Caracas</strong> y mercados globales desde tu teléfono. 
-            Rápido, seguro y sin montos mínimos absurdos.
+            <strong class="text-white">Bolsa de Valores de Caracas</strong> y mercados globales desde tu teléfono. 
+            Rápido, seguro y sin montos mínimos.
         </p>
 
-       <form action="https://formspree.io/f/mvzbqrlp" method="POST" class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
-    <input 
-        type="email" 
-        name="email" 
-        required
-        placeholder="cjbattistini17@gmail.com" 
-        class="flex-1 bg-slate-800 border border-slate-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-emerald-500 transition"
-    >
-    <button type="submit" class="bg-emerald-500 hover:bg-emerald-600 text-slate-900 font-bold py-3 px-6 rounded-lg transition transform hover:scale-105">
-        Unirme a la lista
-    </button>
-</form>
-        <div class="w-full max-w-5xl mt-16 mx-auto bg-slate-800 p-1 rounded-xl border border-slate-700 shadow-2xl shadow-emerald-500/10 h-[400px] md:h-[500px] overflow-hidden relative group">
-    
-    <div class="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded border border-slate-700 flex items-center gap-2 shadow-lg">
-        <span class="relative flex h-2 w-2">
-          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-          <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-        </span>
-        <span class="text-xs text-slate-300 font-bold">Mercado en Vivo</span>
-    </div>
+        <form action="https://formspree.io/f/mvzbqrlp" method="POST" class="flex flex-col sm:flex-row gap-3 w-full max-w-md">
+            <input 
+                type="email" 
+                name="email" 
+                required
+                placeholder="Tu correo electrónico" 
+                class="flex-1 bg-slate-800/50 border border-slate-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 transition shadow-inner"
+            >
+            <button type="submit" class="bg-white text-slate-900 font-bold py-4 px-8 rounded-2xl transition transform hover:scale-105 active:scale-95 shadow-xl shadow-white/5">
+                Unirme
+            </button>
+        </form>
 
-    <div class="tradingview-widget-container" style="height:100%;width:100%">
-        <div class="tradingview-widget-container__widget" style="height:calc(100% - 32px);width:100%"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
-        {
-        "autosize": true,
-        "symbol": "SP:SPX",
-        "interval": "D",
-        "timezone": "America/Caracas",
-        "theme": "dark",
-        "style": "3",
-        "locale": "es",
-        "enable_publishing": false,
-        "backgroundColor": "rgba(15, 23, 42, 1)",
-        "gridColor": "rgba(30, 41, 59, 1)",
-        "hide_top_toolbar": false,
-        "hide_legend": false,
-        "save_image": false,
-        "calendar": false,
-        "hide_volume": true,
-        "support_host": "https://www.tradingview.com"
-        }
-        </script>
-    </div>
-</div>
-        <p class="text-xs text-slate-500 mt-4">🔒 Tus datos están 100% seguros. Cero spam.</p>
+        <div class="w-full max-w-5xl mt-20 mx-auto bg-[#0F172A] p-1 rounded-3xl border border-slate-800 shadow-2xl shadow-emerald-500/5 h-[450px] overflow-hidden relative">
+            <div class="absolute top-4 left-4 z-10 bg-slate-900/90 backdrop-blur px-3 py-1.5 rounded-full border border-slate-700 flex items-center gap-2">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-[10px] text-slate-300 font-bold uppercase tracking-tighter">Mercado en Vivo</span>
+            </div>
+
+            <div class="tradingview-widget-container" style="height:100%;width:100%">
+                <div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+                {
+                    "autosize": true,
+                    "symbol": "SP:SPX",
+                    "interval": "D",
+                    "timezone": "America/Caracas",
+                    "theme": "dark",
+                    "style": "3",
+                    "locale": "es",
+                    "backgroundColor": "rgba(15, 23, 42, 1)",
+                    "gridColor": "rgba(30, 41, 59, 1)",
+                    "hide_top_toolbar": false,
+                    "support_host": "https://www.tradingview.com"
+                }
+                </script>
+            </div>
+        </div>
+        <p class="text-[10px] text-slate-500 mt-6 uppercase tracking-widest font-bold">🔒 Tus datos están protegidos bajo encriptación CIMA</p>
     </main>
 
-    <section class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto mt-32 px-6 mb-20">
-        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
-            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">⚡</div>
-            <h3 class="text-xl font-bold mb-2">Velocidad Rayo</h3>
-            <p class="text-slate-400 text-sm">Ejecuta órdenes de compra y venta en milisegundos. Sin burocracia de papel.</p>
+    <section class="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6 mb-32">
+        <div class="bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/30 transition group">
+            <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">⚡</div>
+            <h3 class="text-xl font-bold mb-3 text-white">Velocidad</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Ejecuta órdenes en milisegundos. Diseñado para la inmediatez de la nueva generación.</p>
         </div>
-        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
-            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🛡️</div>
-            <h3 class="text-xl font-bold mb-2">Seguridad Total</h3>
-            <p class="text-slate-400 text-sm">Tu cuenta protegida con autenticación de dos pasos y encriptación bancaria.</p>
+        <div class="bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/30 transition group">
+            <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">🛡️</div>
+            <h3 class="text-xl font-bold mb-3 text-white">Seguridad</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Encriptación de grado militar y autenticación biométrica para proteger tus activos.</p>
         </div>
-        <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 hover:border-emerald-500/50 transition">
-            <div class="w-12 h-12 bg-slate-700 rounded-xl flex items-center justify-center text-2xl mb-4">🇻🇪</div>
-            <h3 class="text-xl font-bold mb-2">Identidad Local</h3>
-            <p class="text-slate-400 text-sm">Conectados directamente con la realidad venezolana. En Bolívares y Divisas.</p>
+        <div class="bg-slate-900/50 p-8 rounded-3xl border border-slate-800 hover:border-emerald-500/30 transition group">
+            <div class="w-12 h-12 bg-emerald-500/10 rounded-2xl flex items-center justify-center text-2xl mb-6 group-hover:scale-110 transition">🇻🇪</div>
+            <h3 class="text-xl font-bold mb-3 text-white">Venezuela</h3>
+            <p class="text-slate-400 text-sm leading-relaxed">Conectados con la banca nacional para facilitar tus depósitos y retiros en Bolívares.</p>
         </div>
     </section>
 
-    <footer class="border-t border-slate-800 py-8 mt-20">
-    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div class="text-slate-500 text-sm">
-            &copy; 2026 CIMA Financial. <br>Todos los derechos reservados.
+    <footer class="border-t border-slate-800 py-12">
+        <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-8">
+            <div class="text-slate-500 text-xs text-center md:text-left leading-relaxed">
+                <div class="text-white font-bold text-lg mb-2">CIMA</div>
+                &copy; 2026 CIMA Financial Technologies. <br>Caracas, Venezuela.
+            </div>
+            <div class="flex gap-4">
+                <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:text-emerald-400 transition">
+                    <i data-lucide="instagram" class="w-5 h-5"></i>
+                </a>
+                <a href="#" class="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center hover:text-emerald-400 transition">
+                    <i data-lucide="twitter" class="w-5 h-5"></i>
+                </a>
+            </div>
         </div>
-        <div class="flex gap-6">
-            <a href="https://instagram.com/TU_USUARIO" target="_blank" class="text-slate-400 hover:text-emerald-400 transition">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-            </a>
-            <a href="https://x.com/TU_USUARIO" target="_blank" class="text-slate-400 hover:text-emerald-400 transition">
-                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-            </a>
-        </div>
-    </div>
-</footer>
-    
-<script>
-    // URL API Pública (Open Exchange Rates)
-    const API_URL = 'https://open.er-api.com/v6/latest/USD';
+    </footer>
 
-    async function getBCV() {
-        const display = document.getElementById('bcv-price');
-        try {
-            const response = await fetch(API_URL);
-            const data = await response.json();
-            
-            // Obtener tasa VES (Bolívar)
-            const rate = data.rates.VES;
+    <script>
+        lucide.createIcons();
+        const API_URL = 'https://open.er-api.com/v6/latest/USD';
 
-            // Formatear a estilo venezolano (ej: 45,20)
-            const formatter = new Intl.NumberFormat('es-VE', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-            });
-
-            // Actualizar el HTML
-            display.innerText = `Bs. ${formatter.format(rate)}`;
-            
-        } catch (error) {
-            console.error(error);
-            display.innerText = "Error";
+        async function getBCV() {
+            const display = document.getElementById('bcv-price');
+            try {
+                const response = await fetch(API_URL);
+                const data = await response.json();
+                const rate = data.rates.VES;
+                const formatter = new Intl.NumberFormat('es-VE', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+                display.innerText = `Bs. ${formatter.format(rate)}`;
+            } catch (error) {
+                display.innerText = "Tasa N/A";
+            }
         }
-    }
 
-    // Ejecutar al cargar y actualizar cada 60 seg
-    getBCV();
-    setInterval(getBCV, 60000);
-</script>    
-    
+        getBCV();
+        setInterval(getBCV, 60000);
+    </script>    
 </body>
 </html>

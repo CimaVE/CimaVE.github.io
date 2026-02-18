@@ -121,6 +121,39 @@
         </div>
     </div>
 </footer>
+    
+<script>
+    // URL API Pública (Open Exchange Rates)
+    const API_URL = 'https://open.er-api.com/v6/latest/USD';
 
+    async function getBCV() {
+        const display = document.getElementById('bcv-price');
+        try {
+            const response = await fetch(API_URL);
+            const data = await response.json();
+            
+            // Obtener tasa VES (Bolívar)
+            const rate = data.rates.VES;
+
+            // Formatear a estilo venezolano (ej: 45,20)
+            const formatter = new Intl.NumberFormat('es-VE', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            // Actualizar el HTML
+            display.innerText = `Bs. ${formatter.format(rate)}`;
+            
+        } catch (error) {
+            console.error(error);
+            display.innerText = "Error";
+        }
+    }
+
+    // Ejecutar al cargar y actualizar cada 60 seg
+    getBCV();
+    setInterval(getBCV, 60000);
+</script>    
+    
 </body>
 </html>

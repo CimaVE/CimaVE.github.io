@@ -103,15 +103,33 @@
         </div>
     </main>
 
-    <nav class="fixed bottom-0 w-full glass px-6 pb-6 pt-3 flex justify-between items-center z-50">
-        <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="home" class="w-6 h-6"></i><span class="text-[10px] font-medium">Inicio</span></a>
-        <a href="market.html" class="flex flex-col items-center gap-1 text-emerald-400"><i data-lucide="bar-chart-2" class="w-6 h-6"></i><span class="text-[10px] font-medium">Mercado</span></a>
-        <div class="relative -top-6">
-            <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg border-[5px] border-[#0B0E14] active:scale-90 transition transform"><i data-lucide="arrow-left-right" class="w-8 h-8"></i></a>
-        </div>
-        <a href="academy.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="graduation-cap" class="w-6 h-6"></i><span class="text-[10px] font-medium">Aprende</span></a>
-        <a href="#" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition"><i data-lucide="user" class="w-6 h-6"></i><span class="text-[10px] font-medium">Perfil</span></a>
-    </nav>
+    <nav class="fixed bottom-0 w-full glass px-2 pb-6 pt-3 flex justify-around items-center z-50">
+    <a href="app.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+        <i data-lucide="home" class="w-6 h-6"></i>
+        <span class="text-[10px] font-medium">Inicio</span>
+    </a>
+
+    <a href="market.html" class="flex flex-col items-center gap-1 text-emerald-400 w-16">
+        <i data-lucide="bar-chart-2" class="w-6 h-6"></i>
+        <span class="text-[10px] font-medium">Mercado</span>
+    </a>
+    
+    <div class="relative -top-6">
+        <a href="app.html" class="bg-emerald-500 text-[#0B0E14] w-16 h-16 rounded-full flex items-center justify-center shadow-lg shadow-emerald-500/50 border-[5px] border-[#0B0E14] active:scale-90 transition transform">
+            <i data-lucide="arrow-left-right" class="w-8 h-8"></i>
+        </a>
+    </div>
+
+    <a href="academy.html" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+        <i data-lucide="graduation-cap" class="w-6 h-6"></i>
+        <span class="text-[10px] font-medium">Aprende</span>
+    </a>
+
+    <a href="#" class="flex flex-col items-center gap-1 text-slate-500 hover:text-white transition w-16">
+        <i data-lucide="user" class="w-6 h-6"></i>
+        <span class="text-[10px] font-medium">Perfil</span>
+    </a>
+</nav>
 
     <script>
         lucide.createIcons();

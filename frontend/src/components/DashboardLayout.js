@@ -29,70 +29,69 @@ const DashboardLayout = ({ children }) => {
     { icon: BarChart3, label: 'Dashboard', path: '/dashboard' },
     { icon: Layers, label: 'Collections', path: '/collections' },
     { icon: Target, label: 'Objetivos', path: '/goals' },
-    { icon: Bell, label: 'Cima Pulse', path: '/alerts' },
+    { icon: Bell, label: 'Alertas', path: '/alerts' },
     { icon: BookOpen, label: 'Academia', path: '/academy' },
     { icon: FileText, label: 'Reportes', path: '/reports' },
     { icon: Users, label: 'Referidos', path: '/referrals' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#02040A]">
+    <div className="min-h-screen bg-[#0A0A0A]">
       {/* Sidebar - Desktop */}
-      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-64 flex-col border-r border-white/5 bg-[#0B0E14]/50 backdrop-blur-xl z-40">
-        <div className="p-6">
+      <aside className="hidden lg:flex fixed left-0 top-0 bottom-0 w-56 flex-col border-r border-[#1a1a1a] bg-[#0A0A0A] z-40">
+        <div className="p-5">
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-              <TrendingUp className="w-6 h-6 text-white" />
+            <div className="w-8 h-8 bg-[#8B1538] rounded flex items-center justify-center">
+              <TrendingUp className="w-4 h-4 text-white" strokeWidth={2.5} />
             </div>
-            <span className="font-heading text-xl font-bold text-white">CIMA<span className="text-primary">VE</span></span>
+            <span className="text-lg font-semibold text-white tracking-tight">CIMA</span>
           </Link>
         </div>
 
-        <nav className="flex-1 px-4 space-y-1">
+        <nav className="flex-1 px-3 space-y-0.5">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
-              className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              className={`flex items-center gap-3 px-3 py-2.5 rounded-md transition-colors ${
                 location.pathname === item.path
-                  ? 'bg-primary/10 text-primary'
-                  : 'text-muted-foreground hover:text-white hover:bg-white/5'
+                  ? 'bg-[#8B1538]/10 text-[#8B1538]'
+                  : 'text-white/50 hover:text-white hover:bg-white/5'
               }`}
             >
-              <item.icon className="w-5 h-5" />
-              <span className="text-sm font-medium">{item.label}</span>
+              <item.icon className="w-4 h-4" />
+              <span className="text-sm">{item.label}</span>
             </Link>
           ))}
         </nav>
 
-        <div className="p-4 border-t border-white/5">
+        <div className="p-3 border-t border-[#1a1a1a]">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <button className="flex items-center gap-3 w-full px-4 py-3 rounded-lg hover:bg-white/5 transition-colors">
-                <div className="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center">
+              <button className="flex items-center gap-3 w-full px-3 py-2.5 rounded-md hover:bg-white/5 transition-colors">
+                <div className="w-8 h-8 rounded-full bg-[#1a1a1a] flex items-center justify-center overflow-hidden">
                   {user?.picture ? (
-                    <img src={user.picture} alt={user.name} className="w-8 h-8 rounded-full" />
+                    <img src={user.picture} alt={user.name} className="w-8 h-8" />
                   ) : (
-                    <User className="w-4 h-4 text-primary" />
+                    <User className="w-4 h-4 text-white/50" />
                   )}
                 </div>
                 <div className="flex-1 text-left">
-                  <p className="text-sm font-medium text-white truncate">{user?.name}</p>
-                  <p className="text-xs text-muted-foreground">Score: {user?.cima_score || 0}</p>
+                  <p className="text-sm text-white truncate">{user?.name}</p>
                 </div>
               </button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56 bg-[#0B0E14] border-white/10">
-              <DropdownMenuItem onClick={() => navigate('/profile')}>
+            <DropdownMenuContent align="end" className="w-48 bg-[#111111] border-[#1a1a1a]">
+              <DropdownMenuItem onClick={() => navigate('/profile')} className="text-white/70 hover:text-white focus:text-white focus:bg-white/5">
                 <User className="mr-2 h-4 w-4" />
                 Mi Perfil
               </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => navigate('/settings')}>
+              <DropdownMenuItem onClick={() => navigate('/settings')} className="text-white/70 hover:text-white focus:text-white focus:bg-white/5">
                 <Settings className="mr-2 h-4 w-4" />
                 Configuración
               </DropdownMenuItem>
-              <DropdownMenuSeparator className="bg-white/10" />
-              <DropdownMenuItem onClick={handleLogout} className="text-destructive">
+              <DropdownMenuSeparator className="bg-[#1a1a1a]" />
+              <DropdownMenuItem onClick={handleLogout} className="text-red-400 hover:text-red-300 focus:text-red-300 focus:bg-white/5">
                 <LogOut className="mr-2 h-4 w-4" />
                 Cerrar Sesión
               </DropdownMenuItem>
@@ -102,50 +101,50 @@ const DashboardLayout = ({ children }) => {
       </aside>
 
       {/* Mobile Header */}
-      <header className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-[#0B0E14]/80 backdrop-blur-xl border-b border-white/5 z-50 flex items-center justify-between px-4">
+      <header className="lg:hidden fixed top-0 left-0 right-0 h-14 bg-[#0A0A0A] border-b border-[#1a1a1a] z-50 flex items-center justify-between px-4">
         <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-            <TrendingUp className="w-5 h-5 text-white" />
+          <div className="w-7 h-7 bg-[#8B1538] rounded flex items-center justify-center">
+            <TrendingUp className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
           </div>
-          <span className="font-heading text-lg font-bold text-white">CIMA<span className="text-primary">VE</span></span>
+          <span className="text-base font-semibold text-white">CIMA</span>
         </Link>
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2">
-          {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-white/70">
+          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
       </header>
 
       {/* Mobile Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 top-16 bg-[#02040A] z-40 p-4">
-          <nav className="space-y-2">
+        <div className="lg:hidden fixed inset-0 top-14 bg-[#0A0A0A] z-40 p-4">
+          <nav className="space-y-1">
             {navItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-lg ${
+                className={`flex items-center gap-3 px-4 py-3 rounded-md ${
                   location.pathname === item.path
-                    ? 'bg-primary/10 text-primary'
-                    : 'text-muted-foreground'
+                    ? 'bg-[#8B1538]/10 text-[#8B1538]'
+                    : 'text-white/50'
                 }`}
               >
-                <item.icon className="w-5 h-5" />
-                <span>{item.label}</span>
+                <item.icon className="w-4 h-4" />
+                <span className="text-sm">{item.label}</span>
               </Link>
             ))}
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-destructive w-full"
+              className="flex items-center gap-3 px-4 py-3 rounded-md text-red-400 w-full"
             >
-              <LogOut className="w-5 h-5" />
-              <span>Cerrar Sesión</span>
+              <LogOut className="w-4 h-4" />
+              <span className="text-sm">Cerrar Sesión</span>
             </button>
           </nav>
         </div>
       )}
 
       {/* Main Content */}
-      <main className="lg:ml-64 pt-16 lg:pt-0 min-h-screen">
+      <main className="lg:ml-56 pt-14 lg:pt-0 min-h-screen">
         {children}
       </main>
     </div>

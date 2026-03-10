@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
   Bell, Plus, Trash2, TrendingUp, TrendingDown, 
-  ArrowUpRight, ArrowDownRight, Activity, Zap
+  ArrowUpRight, ArrowDownRight, BellRing
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
 import DashboardLayout from '../components/DashboardLayout';
+import { requestNotificationPermission, showNotification, checkAlerts } from '../utils/notifications';
 import {
   Dialog,
   DialogContent,
@@ -31,6 +32,7 @@ const Alerts = () => {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [stocks, setStocks] = useState([]);
   const [cryptos, setCryptos] = useState([]);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
   const [newAlert, setNewAlert] = useState({
     symbol: '',
     alert_type: 'price_above',
@@ -39,7 +41,38 @@ const Alerts = () => {
 
   useEffect(() => {
     fetchData();
+    checkNotificationStatus();
   }, []);
+
+  // Check alerts periodically
+  useEffect(() => {
+    if (!notificationsEnabled || alerts.length === 0) return;
+    
+    const interval = setInterval(() => {
+      checkAlerts(alerts, stocks, cryptos);
+    }, 60000); // Check every minute
+    
+    return () => clearInterval(interval);
+  }, [alerts, stocks, cryptos, notificationsEnabled]);
+
+  const checkNotificationStatus = () => {
+    if ('Notification' in window) {
+      setNotificationsEnabled(Notification.permission === 'granted');
+    }
+  };
+
+  const enableNotifications = async () => {
+    const granted = await requestNotificationPermission();
+    setNotificationsEnabled(granted);
+    if (granted) {
+      toast.success('Notificaciones activadas');
+      showNotification('Alertas activadas', {
+        body: 'Recibirás notificaciones cuando tus activos alcancen el precio configurado.'
+      });
+    } else {
+      toast.error('No se pudieron activar las notificaciones');
+    }
+  };
 
   const fetchData = async () => {
     try {
@@ -60,7 +93,7 @@ const Alerts = () => {
 
   const createAlert = async () => {
     if (!newAlert.symbol || !newAlert.threshold) {
-      toast.error('Por favor completa todos los campos');
+      toast.error('Completa todos los campos');
       return;
     }
 
@@ -69,7 +102,15 @@ const Alerts = () => {
         ...newAlert,
         threshold: parseFloat(newAlert.threshold)
       });
-      toast.success('Alerta creada exitosamente');
+      toast.success('Alerta creada');
+      
+      // Show notification if enabled
+      if (notificationsEnabled) {
+        showNotification('Nueva alerta configurada', {
+          body: `Recibirás una notificación cuando ${newAlert.symbol} ${newAlert.alert_type === 'price_above' ? 'suba a' : 'baje a'} $${newAlert.threshold}`
+        });
+      }
+      
       setDialogOpen(false);
       setNewAlert({ symbol: '', alert_type: 'price_above', threshold: '' });
       fetchData();
@@ -88,11 +129,6 @@ const Alerts = () => {
     }
   };
 
-  const allAssets = [
-    ...stocks.map(s => ({ symbol: s.symbol, name: s.name, price: s.price, type: 'stock' })),
-    ...cryptos.map(c => ({ symbol: c.symbol, name: c.name, price: c.price, type: 'crypto' }))
-  ];
-
   const getAssetPrice = (symbol) => {
     const stock = stocks.find(s => s.symbol === symbol);
     if (stock) return stock.price;
@@ -104,161 +140,151 @@ const Alerts = () => {
   return (
     <DashboardLayout>
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-heading text-3xl font-bold text-white mb-2 flex items-center gap-3">
-              <Zap className="w-8 h-8 text-primary" />
-              Cima Pulse
-            </h1>
-            <p className="text-muted-foreground">
-              Alertas inteligentes personalizadas según tu portafolio
+            <h1 className="text-xl md:text-2xl font-semibold text-white">Alertas de precio</h1>
+            <p className="text-sm text-white/40 mt-1">
+              Recibe notificaciones cuando tus activos alcancen el precio configurado
             </p>
           </div>
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button className="btn-primary-glow" data-testid="create-alert-btn">
-                <Plus className="w-4 h-4 mr-2" />
-                Nueva Alerta
+          <div className="flex items-center gap-2">
+            {!notificationsEnabled && (
+              <Button 
+                onClick={enableNotifications}
+                variant="outline"
+                className="text-sm bg-transparent border-[#252525] hover:bg-white/5 text-white/70"
+                data-testid="enable-notifications-btn"
+              >
+                <BellRing className="w-4 h-4 mr-2" />
+                Activar notificaciones
               </Button>
-            </DialogTrigger>
-            <DialogContent className="bg-[#0B0E14] border-white/10">
-              <DialogHeader>
-                <DialogTitle className="font-heading text-xl text-white">Crear Alerta de Precio</DialogTitle>
-              </DialogHeader>
-              <div className="space-y-4 mt-4">
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Activo</label>
-                  <Select 
-                    value={newAlert.symbol} 
-                    onValueChange={(value) => setNewAlert({ ...newAlert, symbol: value })}
-                  >
-                    <SelectTrigger className="bg-white/5 border-white/10">
-                      <SelectValue placeholder="Selecciona un activo" />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#0B0E14] border-white/10 max-h-60">
-                      <div className="px-2 py-1 text-xs text-muted-foreground">Acciones</div>
-                      {stocks.map((stock) => (
-                        <SelectItem key={stock.symbol} value={stock.symbol}>
-                          {stock.symbol} - {stock.name}
-                        </SelectItem>
-                      ))}
-                      <div className="px-2 py-1 text-xs text-muted-foreground mt-2">Criptomonedas</div>
-                      {cryptos.map((crypto) => (
-                        <SelectItem key={crypto.symbol} value={crypto.symbol}>
-                          {crypto.symbol} - {crypto.name}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Tipo de Alerta</label>
-                  <Select 
-                    value={newAlert.alert_type} 
-                    onValueChange={(value) => setNewAlert({ ...newAlert, alert_type: value })}
-                  >
-                    <SelectTrigger className="bg-white/5 border-white/10">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent className="bg-[#0B0E14] border-white/10">
-                      <SelectItem value="price_above">
-                        <span className="flex items-center gap-2">
-                          <ArrowUpRight className="w-4 h-4 text-secondary" />
-                          Precio sube por encima de
-                        </span>
-                      </SelectItem>
-                      <SelectItem value="price_below">
-                        <span className="flex items-center gap-2">
-                          <ArrowDownRight className="w-4 h-4 text-destructive" />
-                          Precio baja por debajo de
-                        </span>
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-                <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Precio Umbral (USD)</label>
-                  <Input
-                    type="number"
-                    value={newAlert.threshold}
-                    onChange={(e) => setNewAlert({ ...newAlert, threshold: e.target.value })}
-                    placeholder="Ej: 150.00"
-                    className="bg-white/5 border-white/10"
-                    data-testid="alert-threshold-input"
-                  />
-                </div>
-                <Button onClick={createAlert} className="w-full btn-primary-glow" data-testid="submit-alert-btn">
-                  Crear Alerta
+            )}
+            <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+              <DialogTrigger asChild>
+                <Button className="btn-primary text-sm" data-testid="create-alert-btn">
+                  <Plus className="w-4 h-4 mr-2" />
+                  Nueva alerta
                 </Button>
-              </div>
-            </DialogContent>
-          </Dialog>
+              </DialogTrigger>
+              <DialogContent className="bg-[#111111] border-[#1a1a1a]">
+                <DialogHeader>
+                  <DialogTitle className="text-lg text-white">Crear alerta de precio</DialogTitle>
+                </DialogHeader>
+                <div className="space-y-4 mt-4">
+                  <div>
+                    <label className="text-xs text-white/50 mb-2 block">Activo</label>
+                    <Select 
+                      value={newAlert.symbol} 
+                      onValueChange={(value) => setNewAlert({ ...newAlert, symbol: value })}
+                    >
+                      <SelectTrigger className="bg-[#0A0A0A] border-[#1a1a1a] text-white">
+                        <SelectValue placeholder="Selecciona un activo" />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111111] border-[#1a1a1a] max-h-60">
+                        <div className="px-2 py-1 text-xs text-white/40">Acciones</div>
+                        {stocks.map((stock) => (
+                          <SelectItem key={stock.symbol} value={stock.symbol} className="text-white/70 focus:bg-white/5 focus:text-white">
+                            {stock.symbol} - ${stock.price?.toLocaleString()}
+                          </SelectItem>
+                        ))}
+                        <div className="px-2 py-1 text-xs text-white/40 mt-2">Criptomonedas</div>
+                        {cryptos.map((crypto) => (
+                          <SelectItem key={crypto.symbol} value={crypto.symbol} className="text-white/70 focus:bg-white/5 focus:text-white">
+                            {crypto.symbol} - ${crypto.price?.toLocaleString()}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-white/50 mb-2 block">Condición</label>
+                    <Select 
+                      value={newAlert.alert_type} 
+                      onValueChange={(value) => setNewAlert({ ...newAlert, alert_type: value })}
+                    >
+                      <SelectTrigger className="bg-[#0A0A0A] border-[#1a1a1a] text-white">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent className="bg-[#111111] border-[#1a1a1a]">
+                        <SelectItem value="price_above" className="text-white/70 focus:bg-white/5 focus:text-white">
+                          <span className="flex items-center gap-2">
+                            <ArrowUpRight className="w-4 h-4 text-[#22C55E]" />
+                            Sube por encima de
+                          </span>
+                        </SelectItem>
+                        <SelectItem value="price_below" className="text-white/70 focus:bg-white/5 focus:text-white">
+                          <span className="flex items-center gap-2">
+                            <ArrowDownRight className="w-4 h-4 text-[#EF4444]" />
+                            Baja por debajo de
+                          </span>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div>
+                    <label className="text-xs text-white/50 mb-2 block">Precio (USD)</label>
+                    <Input
+                      type="number"
+                      value={newAlert.threshold}
+                      onChange={(e) => setNewAlert({ ...newAlert, threshold: e.target.value })}
+                      placeholder="150.00"
+                      className="bg-[#0A0A0A] border-[#1a1a1a] text-white placeholder:text-white/30"
+                      data-testid="alert-threshold-input"
+                    />
+                  </div>
+                  <Button onClick={createAlert} className="w-full btn-primary" data-testid="submit-alert-btn">
+                    Crear alerta
+                  </Button>
+                </div>
+              </DialogContent>
+            </Dialog>
+          </div>
         </div>
 
+        {/* Notification Status */}
+        {notificationsEnabled && (
+          <motion.div 
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="card-minimal p-4 mb-6 flex items-center gap-3"
+          >
+            <div className="w-8 h-8 rounded-full bg-[#22C55E]/10 flex items-center justify-center">
+              <BellRing className="w-4 h-4 text-[#22C55E]" />
+            </div>
+            <div>
+              <p className="text-sm text-white">Notificaciones activas</p>
+              <p className="text-xs text-white/40">Recibirás alertas cuando se cumplan las condiciones</p>
+            </div>
+          </motion.div>
+        )}
+
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Bell className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-sm text-muted-foreground">Alertas Activas</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">
-              {alerts.filter(a => a.is_active).length}
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-secondary" />
-              </div>
-              <span className="text-sm text-muted-foreground">Alertas Alcistas</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">
-              {alerts.filter(a => a.alert_type === 'price_above').length}
-            </p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-destructive/10 flex items-center justify-center">
-                <TrendingDown className="w-5 h-5 text-destructive" />
-              </div>
-              <span className="text-sm text-muted-foreground">Alertas Bajistas</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">
-              {alerts.filter(a => a.alert_type === 'price_below').length}
-            </p>
-          </motion.div>
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Activas</p>
+            <p className="text-xl font-semibold text-white">{alerts.filter(a => a.is_active).length}</p>
+          </div>
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Alcistas</p>
+            <p className="text-xl font-semibold text-[#22C55E]">{alerts.filter(a => a.alert_type === 'price_above').length}</p>
+          </div>
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Bajistas</p>
+            <p className="text-xl font-semibold text-[#EF4444]">{alerts.filter(a => a.alert_type === 'price_below').length}</p>
+          </div>
         </div>
 
         {/* Alerts List */}
         {loading ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="glass-card h-24 animate-pulse" />
+              <div key={i} className="card-minimal h-16 animate-pulse" />
             ))}
           </div>
         ) : alerts.length > 0 ? (
-          <div className="space-y-3">
+          <div className="space-y-2">
             {alerts.map((alert, index) => {
               const currentPrice = getAssetPrice(alert.symbol);
               const isTriggered = alert.alert_type === 'price_above' 
@@ -268,38 +294,37 @@ const Alerts = () => {
               return (
                 <motion.div
                   key={alert.alert_id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.05 }}
-                  className={`glass-card p-5 flex items-center justify-between ${
-                    isTriggered ? 'border-accent/50' : ''
+                  transition={{ delay: index * 0.03 }}
+                  className={`card-minimal p-4 flex items-center justify-between ${
+                    isTriggered ? 'border-[#8B1538]/50' : ''
                   }`}
                   data-testid={`alert-${alert.alert_id}`}
                 >
                   <div className="flex items-center gap-4">
-                    <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${
+                    <div className={`w-8 h-8 rounded flex items-center justify-center ${
                       alert.alert_type === 'price_above' 
-                        ? 'bg-secondary/10' 
-                        : 'bg-destructive/10'
+                        ? 'bg-[#22C55E]/10' 
+                        : 'bg-[#EF4444]/10'
                     }`}>
                       {alert.alert_type === 'price_above' ? (
-                        <ArrowUpRight className="w-6 h-6 text-secondary" />
+                        <ArrowUpRight className="w-4 h-4 text-[#22C55E]" />
                       ) : (
-                        <ArrowDownRight className="w-6 h-6 text-destructive" />
+                        <ArrowDownRight className="w-4 h-4 text-[#EF4444]" />
                       )}
                     </div>
                     <div>
-                      <h3 className="font-heading font-semibold text-white flex items-center gap-2">
+                      <p className="text-sm font-medium text-white flex items-center gap-2">
                         {alert.symbol}
                         {isTriggered && (
-                          <span className="px-2 py-0.5 rounded-full bg-accent/20 text-accent text-xs">
+                          <span className="px-1.5 py-0.5 rounded bg-[#8B1538]/20 text-[#8B1538] text-xs">
                             Activada
                           </span>
                         )}
-                      </h3>
-                      <p className="text-sm text-muted-foreground">
-                        {alert.alert_type === 'price_above' ? 'Por encima de' : 'Por debajo de'}{' '}
-                        <span className="text-white font-medium">${alert.threshold?.toLocaleString()}</span>
+                      </p>
+                      <p className="text-xs text-white/40">
+                        {alert.alert_type === 'price_above' ? '>' : '<'} ${alert.threshold?.toLocaleString()}
                       </p>
                     </div>
                   </div>
@@ -307,17 +332,15 @@ const Alerts = () => {
                   <div className="flex items-center gap-4">
                     {currentPrice && (
                       <div className="text-right">
-                        <p className="text-sm text-muted-foreground">Precio actual</p>
-                        <p className="font-heading font-semibold text-white">
-                          ${currentPrice.toLocaleString()}
-                        </p>
+                        <p className="text-xs text-white/40">Actual</p>
+                        <p className="text-sm text-white">${currentPrice.toLocaleString()}</p>
                       </div>
                     )}
                     <Button
                       variant="ghost"
                       size="icon"
                       onClick={() => deleteAlert(alert.alert_id)}
-                      className="text-muted-foreground hover:text-destructive"
+                      className="w-8 h-8 text-white/30 hover:text-[#EF4444] hover:bg-[#EF4444]/10"
                     >
                       <Trash2 className="w-4 h-4" />
                     </Button>
@@ -328,21 +351,18 @@ const Alerts = () => {
           </div>
         ) : (
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-12 text-center"
+            className="card-minimal p-12 text-center"
           >
-            <Activity className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="font-heading text-xl font-semibold text-white mb-2">
-              No tienes alertas configuradas
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Crea alertas de precio para estar al tanto de los movimientos del mercado 
-              sin tener que revisar constantemente.
+            <Bell className="w-10 h-10 text-white/20 mx-auto mb-3" />
+            <h3 className="text-base font-medium text-white mb-1">Sin alertas</h3>
+            <p className="text-sm text-white/40 mb-4">
+              Crea alertas para recibir notificaciones cuando tus activos alcancen el precio deseado.
             </p>
-            <Button onClick={() => setDialogOpen(true)} className="btn-primary-glow">
+            <Button onClick={() => setDialogOpen(true)} className="btn-primary text-sm">
               <Plus className="w-4 h-4 mr-2" />
-              Crear mi primera alerta
+              Crear alerta
             </Button>
           </motion.div>
         )}

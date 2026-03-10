@@ -1,81 +1,45 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { 
-  TrendingUp, Shield, Zap, BookOpen, Target, Bell, 
-  Users, BarChart3, ArrowRight, ChevronRight, Globe,
-  Smartphone, Lock, Award, Star
-} from 'lucide-react';
+import { ArrowRight, Shield, Zap, TrendingUp, ChevronRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
 const Landing = () => {
-  const [email, setEmail] = useState('');
-
-  const fadeInUp = {
-    initial: { opacity: 0, y: 30 },
+  const fadeIn = {
+    initial: { opacity: 0, y: 20 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
+    transition: { duration: 0.5 }
   };
-
-  const staggerContainer = {
-    animate: { transition: { staggerChildren: 0.1 } }
-  };
-
-  const features = [
-    {
-      icon: Globe,
-      title: "Mercados Globales",
-      description: "Accede a la Bolsa de Caracas y al NASDAQ desde una sola plataforma"
-    },
-    {
-      icon: Shield,
-      title: "Seguridad Institucional",
-      description: "Activos protegidos con custodia regulada internacionalmente"
-    },
-    {
-      icon: Zap,
-      title: "15 Minutos",
-      description: "De apertura de cuenta a primera inversión, sin burocracia"
-    },
-    {
-      icon: BookOpen,
-      title: "Academia Integrada",
-      description: "Aprende antes de invertir con cursos diseñados para ti"
-    }
-  ];
-
-  const stats = [
-    { value: "$0", label: "Comisión de apertura" },
-    { value: "$1", label: "Inversión mínima" },
-    { value: "15min", label: "Tiempo de registro" },
-    { value: "24/7", label: "Acceso a mercados" }
-  ];
 
   return (
-    <div className="min-h-screen bg-[#02040A]">
+    <div className="min-h-screen bg-[#0A0A0A]">
       {/* Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 nav-glass">
+      <nav className="fixed top-0 left-0 right-0 z-50 nav-minimal">
         <div className="page-container">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-white" />
+              <div className="w-8 h-8 bg-[#8B1538] rounded flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-white" strokeWidth={2.5} />
               </div>
-              <span className="font-heading text-xl font-bold text-white">CIMA<span className="text-primary">VE</span></span>
+              <span className="text-lg font-semibold text-white tracking-tight">CIMA</span>
             </Link>
             
             <div className="hidden md:flex items-center gap-8">
-              <a href="#features" className="text-sm text-muted-foreground hover:text-white transition-colors">Características</a>
-              <a href="#collections" className="text-sm text-muted-foreground hover:text-white transition-colors">Colecciones</a>
-              <a href="#academy" className="text-sm text-muted-foreground hover:text-white transition-colors">Academia</a>
+              <a href="#producto" className="text-sm text-white/60 hover:text-white transition-colors">Producto</a>
+              <a href="#mercados" className="text-sm text-white/60 hover:text-white transition-colors">Mercados</a>
+              <a href="#seguridad" className="text-sm text-white/60 hover:text-white transition-colors">Seguridad</a>
             </div>
             
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <Link to="/login">
-                <Button variant="ghost" className="text-sm" data-testid="login-nav-btn">Iniciar Sesión</Button>
+                <Button variant="ghost" className="text-sm text-white/70 hover:text-white" data-testid="login-nav-btn">
+                  Iniciar sesión
+                </Button>
               </Link>
               <Link to="/register">
-                <Button className="btn-primary-glow text-sm" data-testid="register-nav-btn">Comenzar Gratis</Button>
+                <Button className="btn-primary text-sm" data-testid="register-nav-btn">
+                  Abrir cuenta
+                </Button>
               </Link>
             </div>
           </div>
@@ -83,226 +47,184 @@ const Landing = () => {
       </nav>
 
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <img 
-            src="https://images.unsplash.com/photo-1724711603891-ca4557b9f40f" 
-            alt="Caracas skyline"
-            className="w-full h-full object-cover opacity-30"
-          />
-          <div className="absolute inset-0 hero-gradient" />
-        </div>
-
-        <div className="relative z-10 page-container text-center py-20">
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-            className="max-w-4xl mx-auto"
+      <section className="min-h-screen flex items-center pt-16">
+        <div className="page-container">
+          <div className="max-w-3xl">
+            <motion.div {...fadeIn}>
+              <p className="text-[#8B1538] text-sm font-medium tracking-wide uppercase mb-6">
+                Inversiones sin complicaciones
+              </p>
+              
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-semibold text-white leading-[1.1] tracking-tight mb-6">
+                Invierte en el mundo desde Venezuela
+              </h1>
+              
+              <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-10 max-w-xl">
+                Accede a acciones internacionales y criptomonedas desde una única plataforma. 
+                Sin burocracia. Sin complicaciones.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/register">
+                  <Button className="btn-primary text-base px-8 py-3 h-auto" data-testid="hero-cta-btn">
+                    Comenzar ahora
+                    <ArrowRight className="ml-2 w-4 h-4" />
+                  </Button>
+                </Link>
+                <a href="#producto">
+                  <Button variant="ghost" className="btn-outline text-base px-8 py-3 h-auto">
+                    Conocer más
+                  </Button>
+                </a>
+              </div>
+            </motion.div>
+          </div>
+          
+          {/* Stats - minimal */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.3 }}
+            className="mt-20 pt-10 border-t border-[#1a1a1a]"
           >
-            <motion.div variants={fadeInUp} className="mb-6">
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm">
-                <Star className="w-4 h-4" />
-                La plataforma #1 de inversiones en Venezuela
-              </span>
-            </motion.div>
-
-            <motion.h1 
-              variants={fadeInUp}
-              className="font-heading text-5xl md:text-7xl font-bold text-white mb-6 tracking-tight leading-none"
-            >
-              Invierte en el mundo
-              <br />
-              <span className="gradient-text">desde Venezuela</span>
-            </motion.h1>
-
-            <motion.p 
-              variants={fadeInUp}
-              className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
-            >
-              Accede a la Bolsa de Caracas y a los principales mercados internacionales 
-              desde una única plataforma. Tu primera inversión en 15 minutos.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
-              <Link to="/register">
-                <Button className="btn-primary-glow text-lg px-8 py-6 h-auto" data-testid="hero-cta-btn">
-                  Comenzar a Invertir
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Button>
-              </Link>
-              <a href="#features">
-                <Button variant="outline" className="text-lg px-8 py-6 h-auto border-white/10 hover:bg-white/5">
-                  Conoce más
-                </Button>
-              </a>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div 
-              variants={fadeInUp}
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto"
-            >
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <div className="font-heading text-3xl md:text-4xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-sm text-muted-foreground">{stat.label}</div>
-                </div>
-              ))}
-            </motion.div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              <div>
+                <p className="text-3xl font-semibold text-white">$0</p>
+                <p className="text-sm text-white/40 mt-1">Comisión de apertura</p>
+              </div>
+              <div>
+                <p className="text-3xl font-semibold text-white">$1</p>
+                <p className="text-sm text-white/40 mt-1">Inversión mínima</p>
+              </div>
+              <div>
+                <p className="text-3xl font-semibold text-white">15min</p>
+                <p className="text-sm text-white/40 mt-1">Tiempo de registro</p>
+              </div>
+              <div>
+                <p className="text-3xl font-semibold text-white">24/7</p>
+                <p className="text-sm text-white/40 mt-1">Acceso a mercados</p>
+              </div>
+            </div>
           </motion.div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.5 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <div className="w-6 h-10 rounded-full border-2 border-white/20 flex justify-center pt-2">
-            <motion.div 
-              animate={{ y: [0, 8, 0] }}
-              transition={{ repeat: Infinity, duration: 1.5 }}
-              className="w-1.5 h-1.5 rounded-full bg-primary"
-            />
-          </div>
-        </motion.div>
       </section>
 
-      {/* Features Section */}
-      <section id="features" className="py-24 relative">
+      {/* Product Section */}
+      <section id="producto" className="section-spacing border-t border-[#1a1a1a]">
         <div className="page-container">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-4">
+          <div className="max-w-xl mb-16">
+            <p className="text-[#8B1538] text-sm font-medium tracking-wide uppercase mb-4">Producto</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
               Todo lo que necesitas para invertir
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Una plataforma diseñada para el inversor venezolano, con herramientas profesionales y educación integrada.
+            <p className="text-white/50">
+              Una plataforma diseñada para el inversor venezolano, con herramientas profesionales 
+              y educación integrada.
             </p>
-          </motion.div>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {features.map((feature, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {[
+              {
+                title: "Mercados globales",
+                description: "Accede a acciones de NASDAQ, NYSE y las principales criptomonedas del mundo."
+              },
+              {
+                title: "Alertas inteligentes",
+                description: "Recibe notificaciones cuando tus activos alcancen el precio que defines."
+              },
+              {
+                title: "Academia integrada",
+                description: "Aprende a invertir con cursos diseñados para el contexto venezolano."
+              }
+            ].map((feature, i) => (
               <motion.div
-                key={index}
+                key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card p-8 group hover:border-primary/30 transition-all"
+                transition={{ delay: i * 0.1 }}
+                className="card-minimal p-6"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-heading text-xl font-semibold text-white mb-3">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
+                <h3 className="text-lg font-medium text-white mb-2">{feature.title}</h3>
+                <p className="text-sm text-white/50 leading-relaxed">{feature.description}</p>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Collections Preview */}
-      <section id="collections" className="py-24 bg-[#0B0E14]/50">
+      {/* Markets Section */}
+      <section id="mercados" className="section-spacing border-t border-[#1a1a1a]">
         <div className="page-container">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="flex flex-col md:flex-row items-center gap-16"
-          >
-            <div className="flex-1">
-              <span className="text-primary text-sm font-medium uppercase tracking-wider">Cima Collections</span>
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mt-4 mb-6">
-                Invierte por temas, no por acciones
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <p className="text-[#8B1538] text-sm font-medium tracking-wide uppercase mb-4">Mercados</p>
+              <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
+                Acciones y criptomonedas en un solo lugar
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                En lugar de elegir acciones individuales, invierte en colecciones temáticas curadas por expertos. 
-                Tecnología, energía verde, criptomonedas y más.
+              <p className="text-white/50 mb-8">
+                Invierte en las empresas más grandes del mundo y en las principales criptomonedas, 
+                todo desde tu cuenta de Cima.
               </p>
+              
               <div className="space-y-4">
-                {['Tecnología que usas todos los días', 'El futuro es verde', 'Cripto Blue Chips'].map((name, i) => (
-                  <div key={i} className="flex items-center gap-3 text-muted-foreground">
-                    <ChevronRight className="w-5 h-5 text-primary" />
-                    <span>{name}</span>
+                {['Apple', 'Microsoft', 'Tesla', 'Bitcoin', 'Ethereum'].map((asset, i) => (
+                  <div key={i} className="flex items-center justify-between py-3 border-b border-[#1a1a1a]">
+                    <span className="text-white">{asset}</span>
+                    <ChevronRight className="w-4 h-4 text-white/30" />
                   </div>
                 ))}
               </div>
-              <Link to="/register" className="inline-block mt-8">
-                <Button className="btn-primary-glow">
-                  Explorar Colecciones
-                  <ArrowRight className="ml-2 w-4 h-4" />
-                </Button>
-              </Link>
             </div>
             
-            <div className="flex-1 relative">
-              <div className="grid grid-cols-2 gap-4">
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  className="glass-card overflow-hidden aspect-square"
-                >
-                  <img 
-                    src="https://images.unsplash.com/photo-1616441064539-b4fceed1f01f" 
-                    alt="Technology"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: 0.1 }}
-                  className="glass-card overflow-hidden aspect-square mt-8"
-                >
-                  <img 
-                    src="https://images.unsplash.com/photo-1629816817266-fab9177f675d" 
-                    alt="Crypto"
-                    className="w-full h-full object-cover"
-                  />
-                </motion.div>
+            <div className="card-minimal p-8">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-sm text-white/40 mb-1">Valor del portafolio</p>
+                  <p className="text-4xl font-semibold text-white">$12,450.00</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-[#22C55E] text-sm font-medium">+$1,234.56</span>
+                  <span className="text-white/40 text-sm">(+11.02%)</span>
+                </div>
+                <div className="h-32 bg-[#1a1a1a] rounded flex items-end justify-around p-4">
+                  {[40, 65, 45, 80, 55, 70, 90].map((h, i) => (
+                    <div key={i} className="w-6 bg-[#8B1538]/60 rounded-t" style={{ height: `${h}%` }} />
+                  ))}
+                </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      {/* Academy Section */}
-      <section id="academy" className="py-24">
+      {/* Security Section */}
+      <section id="seguridad" className="section-spacing border-t border-[#1a1a1a]">
         <div className="page-container">
-          <div className="glass-card p-12 md:p-16 text-center relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10" />
-            <div className="relative z-10">
-              <BookOpen className="w-16 h-16 text-primary mx-auto mb-6" />
-              <h2 className="font-heading text-4xl md:text-5xl font-bold text-white mb-6">
-                Academia Cima VE
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-8">
-                Aprende a invertir con cursos diseñados para el contexto venezolano. 
-                Desde fundamentos hasta estrategias avanzadas, certificaciones incluidas.
-              </p>
-              <div className="flex flex-wrap justify-center gap-4">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5">
-                  <Award className="w-4 h-4 text-accent" />
-                  <span className="text-sm">Certificaciones oficiales</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5">
-                  <Users className="w-4 h-4 text-accent" />
-                  <span className="text-sm">Comunidad activa</span>
-                </div>
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/5">
-                  <Target className="w-4 h-4 text-accent" />
-                  <span className="text-sm">Aprendizaje práctico</span>
-                </div>
+          <div className="max-w-xl mx-auto text-center mb-16">
+            <p className="text-[#8B1538] text-sm font-medium tracking-wide uppercase mb-4">Seguridad</p>
+            <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
+              Tu dinero está protegido
+            </h2>
+            <p className="text-white/50">
+              Custodia regulada internacionalmente y las mejores prácticas de seguridad.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="card-minimal p-6 flex gap-4">
+              <Shield className="w-5 h-5 text-[#8B1538] shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-white font-medium mb-1">Custodia segregada</h3>
+                <p className="text-sm text-white/50">Tus activos están separados de los fondos operativos.</p>
+              </div>
+            </div>
+            <div className="card-minimal p-6 flex gap-4">
+              <Zap className="w-5 h-5 text-[#8B1538] shrink-0 mt-0.5" />
+              <div>
+                <h3 className="text-white font-medium mb-1">Encriptación avanzada</h3>
+                <p className="text-sm text-white/50">Protección de datos con los más altos estándares.</p>
               </div>
             </div>
           </div>
@@ -310,57 +232,43 @@ const Landing = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-32 relative overflow-hidden">
-        <div className="absolute inset-0">
-          <img 
-            src="https://images.unsplash.com/photo-1758691737387-a89bb8adf768" 
-            alt="Background"
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#02040A] via-[#02040A]/80 to-[#02040A]" />
-        </div>
-        
-        <div className="page-container relative z-10 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-heading text-4xl md:text-6xl font-bold text-white mb-6">
-              Tu primera inversión<br />en 15 minutos
+      <section className="section-spacing border-t border-[#1a1a1a]">
+        <div className="page-container">
+          <div className="max-w-2xl mx-auto text-center">
+            <h2 className="text-3xl md:text-4xl font-semibold text-white tracking-tight mb-4">
+              Comienza a invertir hoy
             </h2>
-            <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
-              Únete a miles de venezolanos que ya están construyendo su futuro financiero con Cima VE.
+            <p className="text-white/50 mb-8">
+              Abre tu cuenta en minutos y realiza tu primera inversión.
             </p>
             <Link to="/register">
-              <Button className="btn-primary-glow text-lg px-10 py-6 h-auto" data-testid="cta-final-btn">
-                Crear mi cuenta gratis
-                <ArrowRight className="ml-2 w-5 h-5" />
+              <Button className="btn-primary text-base px-10 py-3 h-auto" data-testid="cta-final-btn">
+                Abrir cuenta gratis
+                <ArrowRight className="ml-2 w-4 h-4" />
               </Button>
             </Link>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-white/5 py-12">
+      <footer className="py-8 border-t border-[#1a1a1a]">
         <div className="page-container">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-white" />
+              <div className="w-6 h-6 bg-[#8B1538] rounded flex items-center justify-center">
+                <TrendingUp className="w-3 h-3 text-white" strokeWidth={2.5} />
               </div>
-              <span className="font-heading text-xl font-bold text-white">CIMA<span className="text-primary">VE</span></span>
+              <span className="text-sm font-medium text-white">CIMA</span>
             </div>
             
-            <p className="text-sm text-muted-foreground">
+            <p className="text-xs text-white/40">
               © 2025 Cima VE. Todos los derechos reservados.
             </p>
             
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-6 text-xs text-white/40">
               <a href="#" className="hover:text-white transition-colors">Términos</a>
               <a href="#" className="hover:text-white transition-colors">Privacidad</a>
-              <a href="#" className="hover:text-white transition-colors">Contacto</a>
             </div>
           </div>
         </div>

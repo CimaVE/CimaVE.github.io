@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { 
-  Target, Plus, Trash2, Calendar, DollarSign, Users, 
-  TrendingUp, Plane, Home, GraduationCap, Sparkles
+  Target, Plus, Trash2, Calendar, DollarSign, 
+  Plane, Home, GraduationCap
 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -10,6 +10,7 @@ import { Progress } from '../components/ui/progress';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
 import DashboardLayout from '../components/DashboardLayout';
+import { showGoalProgress, showGoalCompleted } from '../utils/notifications';
 import {
   Dialog,
   DialogContent,
@@ -33,16 +34,8 @@ const categoryIcons = {
   custom: Target,
 };
 
-const categoryColors = {
-  emergency: 'text-destructive bg-destructive/10',
-  travel: 'text-accent bg-accent/10',
-  property: 'text-primary bg-primary/10',
-  education: 'text-secondary bg-secondary/10',
-  custom: 'text-purple-500 bg-purple-500/10',
-};
-
 const Goals = () => {
-  const { api, user } = useAuth();
+  const { api } = useAuth();
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
@@ -71,7 +64,7 @@ const Goals = () => {
 
   const createGoal = async () => {
     if (!newGoal.title || !newGoal.target_amount || !newGoal.deadline) {
-      toast.error('Por favor completa todos los campos');
+      toast.error('Completa todos los campos');
       return;
     }
 
@@ -80,7 +73,7 @@ const Goals = () => {
         ...newGoal,
         target_amount: parseFloat(newGoal.target_amount)
       });
-      toast.success('Objetivo creado exitosamente');
+      toast.success('Objetivo creado');
       setDialogOpen(false);
       setNewGoal({ title: '', target_amount: '', deadline: '', category: 'custom', is_shared: false });
       fetchGoals();
@@ -95,7 +88,7 @@ const Goals = () => {
       toast.success('Objetivo eliminado');
       fetchGoals();
     } catch (error) {
-      toast.error('Error al eliminar el objetivo');
+      toast.error('Error al eliminar');
     }
   };
 
@@ -103,97 +96,102 @@ const Goals = () => {
     const goal = goals.find(g => g.goal_id === goalId);
     if (!goal) return;
 
+    const newAmount = (goal.current_amount || 0) + amount;
+    const isCompleted = newAmount >= goal.target_amount;
+
     try {
-      await api.put(`/goals/${goalId}`, {
-        current_amount: (goal.current_amount || 0) + amount
-      });
-      toast.success(`$${amount} agregados al objetivo`);
+      await api.put(`/goals/${goalId}`, { current_amount: newAmount });
+      toast.success(`$${amount} agregados`);
+      
+      // Show notification
+      if (isCompleted) {
+        showGoalCompleted(goal.title);
+      } else if (newAmount / goal.target_amount >= 0.5) {
+        showGoalProgress(goal.title, newAmount, goal.target_amount);
+      }
+      
       fetchGoals();
     } catch (error) {
       toast.error('Error al agregar fondos');
     }
   };
 
-  const totalGoalValue = goals.reduce((acc, g) => acc + (g.current_amount || 0), 0);
-  const totalTargetValue = goals.reduce((acc, g) => acc + g.target_amount, 0);
+  const totalSaved = goals.reduce((acc, g) => acc + (g.current_amount || 0), 0);
+  const totalTarget = goals.reduce((acc, g) => acc + g.target_amount, 0);
 
   return (
     <DashboardLayout>
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8">
+      <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-heading text-3xl font-bold text-white mb-2">
-              Modo Objetivo
-            </h1>
-            <p className="text-muted-foreground">
-              Define metas financieras y sigue tu progreso hacia ellas
-            </p>
+            <h1 className="text-xl md:text-2xl font-semibold text-white">Objetivos</h1>
+            <p className="text-sm text-white/40 mt-1">Define metas y sigue tu progreso</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="btn-primary-glow" data-testid="create-goal-btn">
+              <Button className="btn-primary text-sm" data-testid="create-goal-btn">
                 <Plus className="w-4 h-4 mr-2" />
-                Nuevo Objetivo
+                Nuevo objetivo
               </Button>
             </DialogTrigger>
-            <DialogContent className="bg-[#0B0E14] border-white/10">
+            <DialogContent className="bg-[#111111] border-[#1a1a1a]">
               <DialogHeader>
-                <DialogTitle className="font-heading text-xl text-white">Crear Objetivo</DialogTitle>
+                <DialogTitle className="text-lg text-white">Crear objetivo</DialogTitle>
               </DialogHeader>
               <div className="space-y-4 mt-4">
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Nombre del objetivo</label>
+                  <label className="text-xs text-white/50 mb-2 block">Nombre</label>
                   <Input
                     value={newGoal.title}
                     onChange={(e) => setNewGoal({ ...newGoal, title: e.target.value })}
                     placeholder="Ej: Viaje a Europa"
-                    className="bg-white/5 border-white/10"
+                    className="bg-[#0A0A0A] border-[#1a1a1a] text-white placeholder:text-white/30"
                     data-testid="goal-title-input"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Monto objetivo (USD)</label>
+                  <label className="text-xs text-white/50 mb-2 block">Monto (USD)</label>
                   <Input
                     type="number"
                     value={newGoal.target_amount}
                     onChange={(e) => setNewGoal({ ...newGoal, target_amount: e.target.value })}
                     placeholder="5000"
-                    className="bg-white/5 border-white/10"
+                    className="bg-[#0A0A0A] border-[#1a1a1a] text-white placeholder:text-white/30"
                     data-testid="goal-amount-input"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Fecha límite</label>
+                  <label className="text-xs text-white/50 mb-2 block">Fecha límite</label>
                   <Input
                     type="date"
                     value={newGoal.deadline}
                     onChange={(e) => setNewGoal({ ...newGoal, deadline: e.target.value })}
-                    className="bg-white/5 border-white/10"
+                    className="bg-[#0A0A0A] border-[#1a1a1a] text-white"
                     data-testid="goal-deadline-input"
                   />
                 </div>
                 <div>
-                  <label className="text-sm text-muted-foreground mb-2 block">Categoría</label>
+                  <label className="text-xs text-white/50 mb-2 block">Categoría</label>
                   <Select 
                     value={newGoal.category} 
                     onValueChange={(value) => setNewGoal({ ...newGoal, category: value })}
                   >
-                    <SelectTrigger className="bg-white/5 border-white/10">
+                    <SelectTrigger className="bg-[#0A0A0A] border-[#1a1a1a] text-white">
                       <SelectValue />
                     </SelectTrigger>
-                    <SelectContent className="bg-[#0B0E14] border-white/10">
-                      <SelectItem value="emergency">Fondo de Emergencia</SelectItem>
-                      <SelectItem value="travel">Viaje</SelectItem>
-                      <SelectItem value="property">Propiedad</SelectItem>
-                      <SelectItem value="education">Educación</SelectItem>
-                      <SelectItem value="custom">Personalizado</SelectItem>
+                    <SelectContent className="bg-[#111111] border-[#1a1a1a]">
+                      <SelectItem value="emergency" className="text-white/70 focus:bg-white/5 focus:text-white">Emergencia</SelectItem>
+                      <SelectItem value="travel" className="text-white/70 focus:bg-white/5 focus:text-white">Viaje</SelectItem>
+                      <SelectItem value="property" className="text-white/70 focus:bg-white/5 focus:text-white">Propiedad</SelectItem>
+                      <SelectItem value="education" className="text-white/70 focus:bg-white/5 focus:text-white">Educación</SelectItem>
+                      <SelectItem value="custom" className="text-white/70 focus:bg-white/5 focus:text-white">Otro</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
-                <Button onClick={createGoal} className="w-full btn-primary-glow" data-testid="submit-goal-btn">
-                  Crear Objetivo
+                <Button onClick={createGoal} className="w-full btn-primary" data-testid="submit-goal-btn">
+                  Crear objetivo
                 </Button>
               </div>
             </DialogContent>
@@ -201,137 +199,92 @@ const Goals = () => {
         </div>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Target className="w-5 h-5 text-primary" />
-              </div>
-              <span className="text-sm text-muted-foreground">Objetivos Activos</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">{goals.length}</p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center">
-                <TrendingUp className="w-5 h-5 text-secondary" />
-              </div>
-              <span className="text-sm text-muted-foreground">Ahorrado</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">${totalGoalValue.toLocaleString()}</p>
-          </motion.div>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="glass-card p-6"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-accent/10 flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-accent" />
-              </div>
-              <span className="text-sm text-muted-foreground">Meta Total</span>
-            </div>
-            <p className="font-heading text-3xl font-bold text-white">${totalTargetValue.toLocaleString()}</p>
-          </motion.div>
+        <div className="grid grid-cols-3 gap-4 mb-6">
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Objetivos</p>
+            <p className="text-xl font-semibold text-white">{goals.length}</p>
+          </div>
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Ahorrado</p>
+            <p className="text-xl font-semibold text-[#22C55E]">${totalSaved.toLocaleString()}</p>
+          </div>
+          <div className="card-minimal p-4">
+            <p className="text-xs text-white/40 mb-1">Meta total</p>
+            <p className="text-xl font-semibold text-white">${totalTarget.toLocaleString()}</p>
+          </div>
         </div>
 
         {/* Goals List */}
         {loading ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="glass-card h-32 animate-pulse" />
+              <div key={i} className="card-minimal h-24 animate-pulse" />
             ))}
           </div>
         ) : goals.length > 0 ? (
-          <div className="space-y-4">
+          <div className="space-y-3">
             {goals.map((goal, index) => {
               const Icon = categoryIcons[goal.category] || Target;
-              const colorClass = categoryColors[goal.category] || categoryColors.custom;
               const progress = (goal.current_amount / goal.target_amount) * 100;
               const daysLeft = Math.ceil((new Date(goal.deadline) - new Date()) / (1000 * 60 * 60 * 24));
 
               return (
                 <motion.div
                   key={goal.goal_id}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: index * 0.1 }}
-                  className="glass-card p-6"
+                  transition={{ delay: index * 0.03 }}
+                  className="card-minimal p-5"
                   data-testid={`goal-${goal.goal_id}`}
                 >
-                  <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    <div className={`w-14 h-14 rounded-xl ${colorClass} flex items-center justify-center shrink-0`}>
-                      <Icon className="w-7 h-7" />
-                    </div>
-                    
-                    <div className="flex-1">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <h3 className="font-heading text-lg font-semibold text-white">{goal.title}</h3>
-                          <div className="flex items-center gap-3 mt-1">
-                            <span className="text-sm text-muted-foreground flex items-center gap-1">
-                              <Calendar className="w-3.5 h-3.5" />
-                              {daysLeft > 0 ? `${daysLeft} días restantes` : 'Vencido'}
-                            </span>
-                            {goal.is_shared && (
-                              <span className="text-sm text-purple-400 flex items-center gap-1">
-                                <Users className="w-3.5 h-3.5" />
-                                Compartido
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                        <Button
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => deleteGoal(goal.goal_id)}
-                          className="text-muted-foreground hover:text-destructive"
-                        >
-                          <Trash2 className="w-4 h-4" />
-                        </Button>
+                  <div className="flex items-start justify-between gap-4">
+                    <div className="flex items-start gap-4 flex-1">
+                      <div className="w-10 h-10 rounded bg-[#8B1538]/10 flex items-center justify-center shrink-0">
+                        <Icon className="w-5 h-5 text-[#8B1538]" />
                       </div>
-
-                      <div className="space-y-2">
-                        <div className="flex items-center justify-between text-sm">
-                          <span className="text-muted-foreground">
-                            ${(goal.current_amount || 0).toLocaleString()} de ${goal.target_amount.toLocaleString()}
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-1">
+                          <h3 className="text-sm font-medium text-white">{goal.title}</h3>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => deleteGoal(goal.goal_id)}
+                            className="w-7 h-7 -mr-2 text-white/30 hover:text-[#EF4444] hover:bg-[#EF4444]/10"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </Button>
+                        </div>
+                        <p className="text-xs text-white/40 flex items-center gap-1 mb-3">
+                          <Calendar className="w-3 h-3" />
+                          {daysLeft > 0 ? `${daysLeft} días restantes` : 'Vencido'}
+                        </p>
+                        <Progress value={progress} className="h-1.5 bg-[#1a1a1a] mb-2" />
+                        <div className="flex items-center justify-between">
+                          <span className="text-xs text-white/50">
+                            ${(goal.current_amount || 0).toLocaleString()} / ${goal.target_amount.toLocaleString()}
                           </span>
-                          <span className="font-medium text-white">{progress.toFixed(0)}%</span>
+                          <span className="text-xs text-white">{progress.toFixed(0)}%</span>
                         </div>
-                        <Progress value={progress} className="h-2" />
                       </div>
                     </div>
-
-                    <div className="flex gap-2 shrink-0">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => addFunds(goal.goal_id, 50)}
-                        className="border-white/10"
-                      >
-                        +$50
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => addFunds(goal.goal_id, 100)}
-                        className="border-white/10"
-                      >
-                        +$100
-                      </Button>
-                    </div>
+                  </div>
+                  <div className="flex gap-2 mt-4 ml-14">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addFunds(goal.goal_id, 50)}
+                      className="text-xs h-7 bg-transparent border-[#1a1a1a] hover:bg-white/5 text-white/70"
+                    >
+                      +$50
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => addFunds(goal.goal_id, 100)}
+                      className="text-xs h-7 bg-transparent border-[#1a1a1a] hover:bg-white/5 text-white/70"
+                    >
+                      +$100
+                    </Button>
                   </div>
                 </motion.div>
               );
@@ -339,21 +292,18 @@ const Goals = () => {
           </div>
         ) : (
           <motion.div 
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card p-12 text-center"
+            className="card-minimal p-12 text-center"
           >
-            <Target className="w-16 h-16 text-muted-foreground mx-auto mb-4" />
-            <h3 className="font-heading text-xl font-semibold text-white mb-2">
-              No tienes objetivos activos
-            </h3>
-            <p className="text-muted-foreground mb-6 max-w-md mx-auto">
-              Crea tu primer objetivo financiero y comienza a ahorrar con propósito. 
-              Define metas para viajes, emergencias, educación o lo que necesites.
+            <Target className="w-10 h-10 text-white/20 mx-auto mb-3" />
+            <h3 className="text-base font-medium text-white mb-1">Sin objetivos</h3>
+            <p className="text-sm text-white/40 mb-4">
+              Crea tu primer objetivo y comienza a ahorrar con propósito.
             </p>
-            <Button onClick={() => setDialogOpen(true)} className="btn-primary-glow">
+            <Button onClick={() => setDialogOpen(true)} className="btn-primary text-sm">
               <Plus className="w-4 h-4 mr-2" />
-              Crear mi primer objetivo
+              Crear objetivo
             </Button>
           </motion.div>
         )}

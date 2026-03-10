@@ -8,7 +8,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
-import DashboardLayout from '../components/DashboardLayout';
+import BottomNav from '../components/layout/BottomNav';
 import { requestNotificationPermission, showNotification, checkAlerts } from '../utils/notifications';
 import {
   Dialog,
@@ -138,9 +138,9 @@ const Alerts = () => {
   };
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-[#0A0A0A] pb-24">
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
+      <div className="px-5 pt-8 max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
@@ -367,7 +367,8 @@ const Alerts = () => {
           </motion.div>
         )}
       </div>
-    </DashboardLayout>
+      <BottomNav />
+    </div>
   );
 };
 

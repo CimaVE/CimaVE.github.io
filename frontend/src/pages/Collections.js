@@ -5,7 +5,7 @@ import { Layers, ArrowRight, ChevronLeft, Plus } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
-import DashboardLayout from '../components/DashboardLayout';
+import BottomNav from '../components/layout/BottomNav';
 
 const Collections = () => {
   const { api } = useAuth();
@@ -74,9 +74,9 @@ const Collections = () => {
 
   if (selectedCollection) {
     return (
-      <DashboardLayout>
+      <div className="min-h-screen bg-[#0A0A0A] pb-24">
         <Toaster position="top-center" theme="dark" />
-        <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
+        <div className="px-5 pt-8 max-w-4xl mx-auto">
           <button 
             onClick={() => setSelectedCollection(null)}
             className="flex items-center gap-1 text-sm text-white/40 hover:text-white mb-6"
@@ -136,14 +136,15 @@ const Collections = () => {
             </div>
           </div>
         </div>
-      </DashboardLayout>
+        <BottomNav />
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-[#0A0A0A] pb-24">
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8 max-w-5xl">
+      <div className="px-5 pt-8 max-w-5xl mx-auto">
         <div className="mb-8">
           <h1 className="text-xl md:text-2xl font-semibold text-white">Collections</h1>
           <p className="text-sm text-white/40 mt-1">Invierte en temas, no en acciones individuales</p>
@@ -189,7 +190,8 @@ const Collections = () => {
           </div>
         )}
       </div>
-    </DashboardLayout>
+      <BottomNav />
+    </div>
   );
 };
 

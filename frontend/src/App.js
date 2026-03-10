@@ -23,12 +23,15 @@ import Alerts from "./pages/Alerts";
 import Academy from "./pages/Academy";
 import Reports from "./pages/Reports";
 import Referrals from "./pages/Referrals";
+import Profile from "./pages/Profile";
+import Deposit from "./pages/Deposit";
+import Withdraw from "./pages/Withdraw";
+import Security from "./pages/Security";
+import KYC from "./pages/KYC";
 
-// AppRouter handles OAuth callback detection
 function AppRouter() {
   const location = useLocation();
   
-  // Check URL fragment for session_id synchronously during render (prevents race conditions)
   if (location.hash?.includes('session_id=')) {
     return <AuthCallback />;
   }
@@ -41,29 +44,20 @@ function AppRouter() {
       <Route path="/register" element={<Register />} />
       
       {/* Protected Routes */}
-      <Route path="/dashboard" element={
-        <ProtectedRoute><Dashboard /></ProtectedRoute>
-      } />
-      <Route path="/collections" element={
-        <ProtectedRoute><Collections /></ProtectedRoute>
-      } />
-      <Route path="/goals" element={
-        <ProtectedRoute><Goals /></ProtectedRoute>
-      } />
-      <Route path="/alerts" element={
-        <ProtectedRoute><Alerts /></ProtectedRoute>
-      } />
-      <Route path="/academy" element={
-        <ProtectedRoute><Academy /></ProtectedRoute>
-      } />
-      <Route path="/reports" element={
-        <ProtectedRoute><Reports /></ProtectedRoute>
-      } />
-      <Route path="/referrals" element={
-        <ProtectedRoute><Referrals /></ProtectedRoute>
-      } />
+      <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+      <Route path="/collections" element={<ProtectedRoute><Collections /></ProtectedRoute>} />
+      <Route path="/goals" element={<ProtectedRoute><Goals /></ProtectedRoute>} />
+      <Route path="/alerts" element={<ProtectedRoute><Alerts /></ProtectedRoute>} />
+      <Route path="/academy" element={<ProtectedRoute><Academy /></ProtectedRoute>} />
+      <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
+      <Route path="/referrals" element={<ProtectedRoute><Referrals /></ProtectedRoute>} />
+      <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+      <Route path="/deposit" element={<ProtectedRoute><Deposit /></ProtectedRoute>} />
+      <Route path="/withdraw" element={<ProtectedRoute><Withdraw /></ProtectedRoute>} />
+      <Route path="/security" element={<ProtectedRoute><Security /></ProtectedRoute>} />
+      <Route path="/kyc" element={<ProtectedRoute><KYC /></ProtectedRoute>} />
       
-      {/* Catch all - redirect to landing */}
+      {/* Catch all */}
       <Route path="*" element={<Landing />} />
     </Routes>
   );

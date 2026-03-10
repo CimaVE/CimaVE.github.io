@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { FileText, Download, Calendar, TrendingUp, TrendingDown, Wallet, Target } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
-import DashboardLayout from '../components/DashboardLayout';
+import BottomNav from '../components/layout/BottomNav';
 
 const Reports = () => {
   const { api, user } = useAuth();
@@ -36,8 +36,8 @@ const Reports = () => {
   };
 
   return (
-    <DashboardLayout>
-      <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
+    <div className="min-h-screen bg-[#0A0A0A] pb-24">
+      <div className="px-5 pt-8 max-w-4xl mx-auto">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
           <div>
             <h1 className="text-xl md:text-2xl font-semibold text-white">Reportes</h1>
@@ -114,7 +114,8 @@ const Reports = () => {
           </motion.div>
         )}
       </div>
-    </DashboardLayout>
+      <BottomNav />
+    </div>
   );
 };
 

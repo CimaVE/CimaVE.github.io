@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
-import DashboardLayout from '../components/DashboardLayout';
+import BottomNav from '../components/layout/BottomNav';
 
 const Referrals = () => {
   const { api } = useAuth();
@@ -67,9 +67,9 @@ const Referrals = () => {
   };
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-[#0A0A0A] pb-24">
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8 max-w-3xl">
+      <div className="px-5 pt-8 max-w-3xl mx-auto">
         <div className="mb-8">
           <h1 className="text-xl md:text-2xl font-semibold text-white">Referidos</h1>
           <p className="text-sm text-white/40 mt-1">Invita amigos y gana $5 por cada uno</p>
@@ -126,7 +126,8 @@ const Referrals = () => {
           </div>
         </motion.div>
       </div>
-    </DashboardLayout>
+      <BottomNav />
+    </div>
   );
 };
 

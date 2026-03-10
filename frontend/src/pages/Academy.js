@@ -5,7 +5,7 @@ import { Button } from '../components/ui/button';
 import { Progress } from '../components/ui/progress';
 import { useAuth } from '../contexts/AuthContext';
 import { Toaster, toast } from 'sonner';
-import DashboardLayout from '../components/DashboardLayout';
+import BottomNav from '../components/layout/BottomNav';
 
 const Academy = () => {
   const { api } = useAuth();
@@ -61,9 +61,9 @@ const Academy = () => {
     const progressPercent = (completedLessons / selectedCourse.lessons) * 100;
 
     return (
-      <DashboardLayout>
+      <div className="min-h-screen bg-[#0A0A0A] pb-24">
         <Toaster position="top-center" theme="dark" />
-        <div className="p-4 md:p-6 lg:p-8 max-w-4xl">
+        <div className="px-5 pt-8 max-w-4xl mx-auto">
           <button onClick={() => setSelectedCourse(null)} className="flex items-center gap-1 text-sm text-white/40 hover:text-white mb-6">
             <ChevronLeft className="w-4 h-4" />
             Volver
@@ -144,14 +144,15 @@ const Academy = () => {
             </div>
           </div>
         </div>
-      </DashboardLayout>
+        <BottomNav />
+      </div>
     );
   }
 
   return (
-    <DashboardLayout>
+    <div className="min-h-screen bg-[#0A0A0A] pb-24">
       <Toaster position="top-center" theme="dark" />
-      <div className="p-4 md:p-6 lg:p-8 max-w-5xl">
+      <div className="px-5 pt-8 max-w-5xl mx-auto">
         <div className="mb-8">
           <h1 className="text-xl md:text-2xl font-semibold text-white">Academia</h1>
           <p className="text-sm text-white/40 mt-1">Aprende a invertir con cursos diseñados para ti</p>
@@ -229,7 +230,8 @@ const Academy = () => {
           </div>
         )}
       </div>
-    </DashboardLayout>
+      <BottomNav />
+    </div>
   );
 };
 

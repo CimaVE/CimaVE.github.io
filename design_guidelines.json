@@ -1,0 +1,167 @@
+{
+  "brand_identity": {
+    "name": "CIMA VE",
+    "mission": "Democratize access to global markets for Venezuelan investors through a premium, frictionless digital experience.",
+    "values": ["Precision", "Transparency", "Growth", "Sovereignty"],
+    "voice": "Professional, Empowering, Direct, Sophisticated",
+    "archetype": "The Sovereign Explorer (Archetype 5: Jewel & Luxury + Archetype 2: Performance)",
+    "visual_concept": "The Ávila at Night – Deep obsidian backgrounds, electric city lights, and golden sunrise accents."
+  },
+  "typography": {
+    "font_family_heading": "Outfit, sans-serif",
+    "font_family_body": "Manrope, sans-serif",
+    "font_family_code": "JetBrains Mono, monospace",
+    "weights": {
+      "heading": "600",
+      "body_regular": "400",
+      "body_medium": "500",
+      "body_bold": "700"
+    },
+    "scale": {
+      "h1": "text-5xl md:text-7xl tracking-tight leading-none",
+      "h2": "text-4xl md:text-5xl tracking-tight",
+      "h3": "text-2xl md:text-3xl tracking-normal",
+      "body_lg": "text-lg leading-relaxed",
+      "body_base": "text-base leading-relaxed",
+      "caption": "text-sm text-muted-foreground tracking-wide uppercase"
+    }
+  },
+  "colors": {
+    "theme": "dark",
+    "palette": {
+      "background": {
+        "default": "#02040A",
+        "paper": "#0B0E14",
+        "subtle": "#161B22"
+      },
+      "foreground": {
+        "default": "#F8FAFC",
+        "muted": "#94A3B8",
+        "subtle": "#64748B"
+      },
+      "primary": {
+        "main": "#3B82F6",
+        "light": "#60A5FA",
+        "dark": "#1D4ED8",
+        "gradient": "linear-gradient(135deg, #3B82F6 0%, #1D4ED8 100%)"
+      },
+      "secondary": {
+        "main": "#10B981",
+        "light": "#34D399",
+        "dark": "#059669",
+        "gradient": "linear-gradient(135deg, #10B981 0%, #059669 100%)"
+      },
+      "accent": {
+        "main": "#F59E0B",
+        "glow": "rgba(245, 158, 11, 0.5)"
+      },
+      "status": {
+        "success": "#10B981",
+        "warning": "#F59E0B",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      },
+      "border": {
+        "default": "rgba(255, 255, 255, 0.08)",
+        "active": "rgba(59, 130, 246, 0.5)"
+      }
+    }
+  },
+  "layout_strategies": {
+    "dashboard_grid": {
+      "type": "bento",
+      "columns": "grid-cols-1 md:grid-cols-3 lg:grid-cols-4",
+      "gap": "gap-4 md:gap-6",
+      "padding": "p-4 md:p-6 lg:p-8"
+    },
+    "marketing_sections": {
+      "hero": "h-screen flex items-center justify-center relative overflow-hidden",
+      "features": "py-24 px-6 md:px-12 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16",
+      "cta": "py-32 text-center relative z-10"
+    },
+    "container": {
+      "max_width": "max-w-7xl",
+      "center": "mx-auto"
+    }
+  },
+  "components": {
+    "buttons": {
+      "style": "sharp-rounded",
+      "radius": "rounded-lg",
+      "variants": {
+        "primary": "bg-primary text-white hover:bg-primary/90 shadow-[0_0_20px_rgba(59,130,246,0.3)] transition-all hover:scale-[1.02]",
+        "secondary": "bg-secondary/10 text-secondary border border-secondary/20 hover:bg-secondary/20",
+        "ghost": "hover:bg-white/5 text-foreground/80 hover:text-foreground",
+        "outline": "border border-input bg-background hover:bg-accent hover:text-accent-foreground"
+      }
+    },
+    "cards": {
+      "style": "glass-modern",
+      "base": "bg-[#0B0E14]/60 backdrop-blur-xl border border-white/5 rounded-xl shadow-sm hover:border-white/10 transition-colors",
+      "highlight": "bg-gradient-to-b from-white/5 to-transparent border border-white/10"
+    },
+    "inputs": {
+      "style": "minimal",
+      "base": "bg-white/5 border-white/10 focus:border-primary/50 focus:ring-1 focus:ring-primary/50 placeholder:text-muted-foreground/50 h-11"
+    },
+    "charts": {
+      "library": "recharts",
+      "theme": {
+        "grid": "rgba(255,255,255,0.05)",
+        "tooltip_bg": "#1E293B",
+        "colors": ["#3B82F6", "#10B981", "#F59E0B", "#8B5CF6", "#EC4899"]
+      }
+    }
+  },
+  "visual_enhancers": {
+    "glassmorphism": {
+      "heavy": "backdrop-blur-2xl bg-black/40 border-b border-white/5",
+      "light": "backdrop-blur-md bg-white/5 border border-white/10"
+    },
+    "shadows": {
+      "glow": "0 0 40px -10px rgba(59, 130, 246, 0.3)",
+      "ambient": "0 20px 40px -20px rgba(0, 0, 0, 0.5)"
+    },
+    "gradients": {
+      "hero_overlay": "linear-gradient(to bottom, rgba(2,4,10,0) 0%, #02040A 100%)",
+      "card_hover": "linear-gradient(180deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 100%)"
+    }
+  },
+  "motion": {
+    "library": "framer-motion",
+    "page_transition": {
+      "initial": { "opacity": 0, "y": 20 },
+      "animate": { "opacity": 1, "y": 0 },
+      "exit": { "opacity": 0, "y": -20 },
+      "transition": { "duration": 0.4, "ease": [0.22, 1, 0.36, 1] }
+    },
+    "stagger": {
+      "container": { "staggerChildren": 0.1 }
+    }
+  },
+  "images": {
+    "hero_bg": "https://images.unsplash.com/photo-1724711603891-ca4557b9f40f",
+    "auth_bg": "https://images.unsplash.com/photo-1722271551043-fef6d612097d",
+    "feature_global": "https://images.unsplash.com/photo-1707247207298-7f5f77c304a0",
+    "feature_ai": "https://images.unsplash.com/photo-1766431546153-d3a999d3c1f7",
+    "social_proof": "https://images.unsplash.com/photo-1758691737387-a89bb8adf768",
+    "collections": {
+      "tech": "https://images.unsplash.com/photo-1616441064539-b4fceed1f01f",
+      "green": "https://images.unsplash.com/photo-1759549567944-bb5923888826",
+      "crypto": "https://images.unsplash.com/photo-1629816817266-fab9177f675d"
+    }
+  },
+  "universal_guidelines": [
+    "NEVER use default Tailwind colors (slate-500, blue-600) directly. Use CSS variables or the custom palette defined above.",
+    "Dark mode is the DEFAULT and PRIMARY mode. Light mode is secondary.",
+    "Use 'Outfit' for all headings (h1-h3) and 'Manrope' for body text and numbers.",
+    "All interactive elements must have a hover state (brightness-110 or subtle scale).",
+    "Use 1px borders with very low opacity (white/10) instead of heavy shadows for depth.",
+    "Charts must use the defined color palette and be accessible (high contrast).",
+    "Input fields should look like 'glass' - semi-transparent background with subtle border.",
+    "Do not use generic 'Lorem Ipsum'. Use realistic financial data and copy.",
+    "Ensure all images have alt text for accessibility.",
+    "Use 'lucide-react' for icons, with a stroke width of 1.5px for a refined look."
+  ],
+  "instructions_to_main_agent": "You are building CIMA VE. Start by setting up the global theme in globals.css based on the 'colors' section. Then, install 'Outfit' and 'Manrope' fonts using @fontsource or Google Fonts. Build the layouts using the 'Bento' grid strategy. Use the provided image URLs for the specific sections. Prioritize the 'Dashboard' and 'Marketing' pages. Ensure the 'Cima Pulse' and 'Collections' features are visually distinct."
+}
